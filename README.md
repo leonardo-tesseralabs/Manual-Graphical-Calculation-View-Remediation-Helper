@@ -1,4 +1,6 @@
-# Graphical View Manual Remediation Helper
+# [LEGACY] Graphical View Manual Remediation Helper
+
+## THIS IS NOT MAINTAINED, ONLY HERE FOR REFERENCE RE: GENERATING STATUS REPORTS. WILL BE DEPRECATED
 
 ## Overview
 
