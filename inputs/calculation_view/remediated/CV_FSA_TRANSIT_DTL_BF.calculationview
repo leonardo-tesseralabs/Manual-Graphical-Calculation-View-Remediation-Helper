@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CV_FSA_TRANSIT_DTL_BF" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="true" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CV_FSA_TRANSIT_DTL_BF"/>
+  <metadata activatedAt="2025-10-27 14:59:27.0" changedAt="2025-10-29 13:18:54.0" createdAt="2025-10-29 13:18:54.6"/>
+  <defaultSchema schemaName="SLTS4"/>
+  <localVariables>
+    <variable id="I_YEAR" parameter="true">
+      <descriptions defaultDescription="I_YEAR"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2023" length="4" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="I_MONTH" parameter="true">
+      <descriptions defaultDescription="I_MONTH"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="01" length="2" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="30"/>
+  <executionHints name="qo_pop_hints" value="USE_HEX_PLAN"/>
+  <dataSources>
+    <DataSource id="CV_FSA_TRANSIT_DTL_BF_BASE" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/POC.TESSERA.REMEDIATED/calculationviews/CV_FSA_TRANSIT_DTL_BF_BASE</resourceUri>
+    </DataSource>
+    <DataSource id="ZGFBM_CEPC_AUDIT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLTS4" columnObjectName="ZGFBM_CEPC_AUDIT"/>
+    </DataSource>
+    <DataSource id="MARA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLTS4" columnObjectName="MARA"/>
+    </DataSource>
+    <DataSource id="MARM" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLTS4" columnObjectName="MARM"/>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="LastDay$$$$M_TIME_DIMENSION$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:AggregationView" id="BSEG_BF">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute aggregationType="sum" id="MSL"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="RUNIT"/>
+        <viewAttribute id="RMVCT"/>
+        <viewAttribute aggregationType="count" id="WSL"/>
+        <viewAttribute aggregationType="count" id="HSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RHCUR"/>
+        <viewAttribute id="RWCUR"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="FNCL_STMT_CD"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="ACCT_GROUP_CD"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BSTAT"/>
+        <viewAttribute aggregationType="count" id="TXBHW"/>
+        <viewAttribute aggregationType="count" id="TXBFW"/>
+        <viewAttribute aggregationType="count" id="MWSTS"/>
+        <viewAttribute aggregationType="count" id="WMWST"/>
+        <viewAttribute aggregationType="count" id="HWBAS"/>
+        <viewAttribute aggregationType="count" id="FWBAS"/>
+        <viewAttribute aggregationType="count" id="QSSHB"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="TRANS_TYPE_CD" length="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ACCT_GROUP_CD&quot;= 'INV',&quot;RMVCT&quot;,'100')&#xD;
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DATA_SRC_CD" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'BSEG BF'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="FSCL_YR" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>'$$I_YEAR$$'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="FSCL_MO" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'00' </formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="FSCL_YR_MO" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;FSCL_YR&quot;+&quot;FSCL_MO&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CV_FSA_TRANSIT_DTL_BF_BASE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MSL" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="RUNIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RMVCT" source="RMVCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RHCUR" source="RHCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RWCUR" source="RWCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FNCL_STMT_CD" source="FNCL_STMT_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ACCT_GROUP_CD" source="ACCT_GROUP_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBHW" source="TXBHW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBFW" source="TXBFW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MWSTS" source="MWSTS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WMWST" source="WMWST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWBAS" source="HWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FWBAS" source="FWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QSSHB" source="QSSHB"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="PRODFMLY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZGFBM_CEPC_AUDIT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODFMLY" source="PRODFMLY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" dynamic="false" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TRANS_TYPE_CD"/>
+        <viewAttribute datatype="NVARCHAR" id="DATA_SRC_CD" length="10" scale="0"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="MSL"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="RUNIT"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RHCUR"/>
+        <viewAttribute id="RWCUR"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BSTAT"/>
+        <viewAttribute id="TXBHW"/>
+        <viewAttribute id="TXBFW"/>
+        <viewAttribute id="MWSTS"/>
+        <viewAttribute id="WMWST"/>
+        <viewAttribute id="HWBAS"/>
+        <viewAttribute id="FWBAS"/>
+        <viewAttribute id="QSSHB"/>
+        <viewAttribute id="PRODFMLY"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#BSEG_BF">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_TYPE_CD" source="TRANS_TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MSL" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="RUNIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RHCUR" source="RHCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RWCUR" source="RWCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBHW" source="TXBHW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBFW" source="TXBFW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MWSTS" source="MWSTS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WMWST" source="WMWST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWBAS" source="HWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FWBAS" source="FWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QSSHB" source="QSSHB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+      </input>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODFMLY" source="PRODFMLY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+      </input>
+      <joinAttribute name="PRCTR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BASE_UOM_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MARA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_UOM_ID" source="MEINS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BASE_UOM_ID"/>
+        <viewAttribute id="TRANS_TYPE_CD"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="MSL"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="RUNIT"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RHCUR"/>
+        <viewAttribute id="RWCUR"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BSTAT"/>
+        <viewAttribute id="TXBHW"/>
+        <viewAttribute id="TXBFW"/>
+        <viewAttribute id="MWSTS"/>
+        <viewAttribute id="WMWST"/>
+        <viewAttribute id="HWBAS"/>
+        <viewAttribute id="FWBAS"/>
+        <viewAttribute id="QSSHB"/>
+        <viewAttribute id="PRODFMLY"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_TYPE_CD" source="TRANS_TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MSL" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="RUNIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RHCUR" source="RHCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RWCUR" source="RWCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBHW" source="TXBHW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBFW" source="TXBFW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MWSTS" source="MWSTS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WMWST" source="WMWST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWBAS" source="HWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FWBAS" source="FWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QSSHB" source="QSSHB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODFMLY" source="PRODFMLY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+      </input>
+      <input node="#Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_UOM_ID" source="BASE_UOM_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MEINH"/>
+        <viewAttribute aggregationType="sum" id="UMREZ"/>
+        <viewAttribute aggregationType="sum" id="UMREN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MARM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINH" source="MEINH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREZ" source="UMREZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREN" source="UMREN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="CN_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="UMREZ"/>
+        <viewAttribute id="UMREN"/>
+        <viewAttribute id="BASE_UOM_ID"/>
+        <viewAttribute id="TRANS_TYPE_CD"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="MSL"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="RUNIT"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RHCUR"/>
+        <viewAttribute id="RWCUR"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BSTAT"/>
+        <viewAttribute id="TXBHW"/>
+        <viewAttribute id="TXBFW"/>
+        <viewAttribute id="MWSTS"/>
+        <viewAttribute id="WMWST"/>
+        <viewAttribute id="HWBAS"/>
+        <viewAttribute id="FWBAS"/>
+        <viewAttribute id="QSSHB"/>
+        <viewAttribute id="PRODFMLY"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_UOM_ID" source="BASE_UOM_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_TYPE_CD" source="TRANS_TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MSL" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="RUNIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RHCUR" source="RHCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RWCUR" source="RWCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBHW" source="TXBHW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBFW" source="TXBFW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MWSTS" source="MWSTS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WMWST" source="WMWST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWBAS" source="HWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FWBAS" source="FWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QSSHB" source="QSSHB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODFMLY" source="PRODFMLY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+      </input>
+      <input node="#Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREZ" source="UMREZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREN" source="UMREN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="MEINH"/>
+      </input>
+      <joinAttribute name="MATNR"/>
+      <joinAttribute name="RUNIT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="FirstDay">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="DAY_INT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1"/>
+        </viewAttribute>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="$$I_MONTH$$"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DAY_INT" source="DAY_INT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" cardinality="CN_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute id="UMREZ"/>
+        <viewAttribute id="UMREN"/>
+        <viewAttribute id="BASE_UOM_ID"/>
+        <viewAttribute id="TRANS_TYPE_CD"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="MSL"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="RUNIT"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RHCUR"/>
+        <viewAttribute id="RWCUR"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BSTAT"/>
+        <viewAttribute id="TXBHW"/>
+        <viewAttribute id="TXBFW"/>
+        <viewAttribute id="MWSTS"/>
+        <viewAttribute id="WMWST"/>
+        <viewAttribute id="HWBAS"/>
+        <viewAttribute id="FWBAS"/>
+        <viewAttribute id="QSSHB"/>
+        <viewAttribute id="PRODFMLY"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREZ" source="UMREZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREN" source="UMREN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_UOM_ID" source="BASE_UOM_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_TYPE_CD" source="TRANS_TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MSL" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="RUNIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RHCUR" source="RHCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RWCUR" source="RWCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBHW" source="TXBHW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBFW" source="TXBFW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MWSTS" source="MWSTS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WMWST" source="WMWST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWBAS" source="HWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FWBAS" source="FWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QSSHB" source="QSSHB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODFMLY" source="PRODFMLY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+      </input>
+      <input node="#FirstDay">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="FIRST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="YEAR"/>
+      </input>
+      <joinAttribute name="FSCL_YR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="LastDay">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="LAST_DAY"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="$$I_MONTH$$"/>
+        </viewAttribute>
+        <viewAttribute id="MONTH_LAST_DAY">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LastDay$$$$M_TIME_DIMENSION$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_DAY" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH_LAST_DAY" source="MONTH_LAST_DAY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" cardinality="CN_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="LAST_DAY"/>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute id="UMREZ"/>
+        <viewAttribute id="UMREN"/>
+        <viewAttribute id="BASE_UOM_ID"/>
+        <viewAttribute id="TRANS_TYPE_CD"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="MSL"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="RUNIT"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RHCUR"/>
+        <viewAttribute id="RWCUR"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BSTAT"/>
+        <viewAttribute id="TXBHW"/>
+        <viewAttribute id="TXBFW"/>
+        <viewAttribute id="MWSTS"/>
+        <viewAttribute id="WMWST"/>
+        <viewAttribute id="HWBAS"/>
+        <viewAttribute id="FWBAS"/>
+        <viewAttribute id="QSSHB"/>
+        <viewAttribute id="PRODFMLY"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="FIRST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREZ" source="UMREZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREN" source="UMREN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_UOM_ID" source="BASE_UOM_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_TYPE_CD" source="TRANS_TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MSL" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="RUNIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RHCUR" source="RHCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RWCUR" source="RWCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBHW" source="TXBHW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBFW" source="TXBFW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MWSTS" source="MWSTS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WMWST" source="WMWST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWBAS" source="HWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FWBAS" source="FWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QSSHB" source="QSSHB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODFMLY" source="PRODFMLY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+      </input>
+      <input node="#LastDay">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_DAY" source="LAST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="YEAR"/>
+      </input>
+      <joinAttribute name="FSCL_YR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="LAST_DAY"/>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute aggregationType="sum" id="UMREZ"/>
+        <viewAttribute aggregationType="sum" id="UMREN"/>
+        <viewAttribute id="BASE_UOM_ID"/>
+        <viewAttribute id="TRANS_TYPE_CD"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute aggregationType="sum" id="MSL"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="RUNIT"/>
+        <viewAttribute aggregationType="count" id="WSL"/>
+        <viewAttribute aggregationType="count" id="HSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RHCUR"/>
+        <viewAttribute id="RWCUR"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BSTAT"/>
+        <viewAttribute aggregationType="count" id="TXBHW"/>
+        <viewAttribute aggregationType="count" id="TXBFW"/>
+        <viewAttribute aggregationType="count" id="MWSTS"/>
+        <viewAttribute aggregationType="count" id="WMWST"/>
+        <viewAttribute aggregationType="count" id="HWBAS"/>
+        <viewAttribute aggregationType="count" id="FWBAS"/>
+        <viewAttribute aggregationType="max" id="QSSHB"/>
+        <viewAttribute id="PRODFMLY"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="LEAD_LDGR_IND" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;BSTAT&quot;='', 'Y','N')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="MTRL_ID_DSPLY" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MATNR&quot; ='',&#xD;
+if(&quot;PRODFMLY&quot; = '999' or isnull(&quot;PRODFMLY&quot;),'XXX'+'_FMLY',&#xD;
+if(&quot;PRODFMLY&quot; ='ASTRA_ATR','ATR'+'_FMLY',&quot;PRODFMLY&quot;+'_FMLY')),ltrim(&quot;MATNR&quot;,'0'))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="RYLTY_IND" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'N'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="QTY" length="19" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(ISNULL(&quot;UMREZ&quot;),&#xD;
+IF(&quot;DRCRK&quot; = 'H' ,&quot;MSL&quot;*(-1) ,&quot;MSL&quot;),&#xD;
+IF(&quot;DRCRK&quot; = 'H' ,(&quot;MSL&quot;*&quot;UMREZ&quot;/&quot;UMREN&quot;)*(-1) ,(&quot;MSL&quot;*&quot;UMREZ&quot;/&quot;UMREN&quot;)))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="TRANS_QTY" length="19" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;MSL&quot;,&quot;MSL&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="DOC_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;WSL&quot;,&quot;WSL&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="LOCAL_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;HSL&quot;,&quot;HSL&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ORIG_TAX_BASE_LOCAL_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;TXBHW&quot;,&quot;TXBHW&quot;*(-1))&#xD;
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ORIG_TAX_BASE_DOC_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;TXBFW&quot;,&quot;TXBFW&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="TAX_LOCAL_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;MWSTS&quot;,&quot;MWSTS&quot;*(-1))&#xD;
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="TAX_DOC_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;WMWST&quot;,&quot;WMWST&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="TAX_BASE_LOCAL_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;HWBAS&quot;,&quot;HWBAS&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="TAX_BASE_DOC_CURR_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;FWBAS&quot;,&quot;FWBAS&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="WITHHOLDING_TAX_BASE_AMT" length="34" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DRCRK&quot;='S',&quot;QSSHB&quot;,&quot;QSSHB&quot;*(-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="EXG_TYPE" length="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;FIXED_RATE_CD&quot;='MER','X',if(&quot;FIXED_RATE_CD&quot;='MAR','M','#'))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="CONV_DATE" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;EXG_TYPE&quot;='X',&quot;LAST_DAY&quot;,if(&quot;EXG_TYPE&quot;='M',&quot;FIRST_DAY&quot;,now()))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_DAY" source="LAST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="FIRST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREZ" source="UMREZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UMREN" source="UMREN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_UOM_ID" source="BASE_UOM_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_TYPE_CD" source="TRANS_TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MSL" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RUNIT" source="RUNIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RHCUR" source="RHCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RWCUR" source="RWCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBHW" source="TXBHW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXBFW" source="TXBFW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MWSTS" source="MWSTS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WMWST" source="WMWST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWBAS" source="HWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FWBAS" source="FWBAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QSSHB" source="QSSHB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODFMLY" source="PRODFMLY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Aggregation_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="LEAD_LDGR_IND" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="LEAD_LDGR_IND"/>
+      </attribute>
+      <attribute id="MTRL_ID_DSPLY" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="MTRL_ID_DSPLY"/>
+      </attribute>
+      <attribute id="RYLTY_IND" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RYLTY_IND"/>
+      </attribute>
+      <attribute id="EXG_TYPE" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EXG_TYPE"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="EXG_TYPE"/>
+      </attribute>
+      <attribute id="CONV_DATE" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CONV_DATE"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="CONV_DATE"/>
+      </attribute>
+      <attribute id="LAST_DAY" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LAST_DAY"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="LAST_DAY"/>
+      </attribute>
+      <attribute id="FIRST_DAY" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FIRST_DAY"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FIRST_DAY"/>
+      </attribute>
+      <attribute id="BASE_UOM_ID" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Base Unit of Measure"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="BASE_UOM_ID"/>
+      </attribute>
+      <attribute id="TRANS_TYPE_CD" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="TRANS_TYPE_CD"/>
+      </attribute>
+      <attribute id="DATA_SRC_CD" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="DATA_SRC_CD"/>
+      </attribute>
+      <attribute id="CHILD_CMPNY_CD" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CHILD_CMPNY_CD"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RBUKRS"/>
+      </attribute>
+      <attribute id="COST_CTR_ID" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RCNTR"/>
+      </attribute>
+      <attribute id="PROFIT_CTR_ID" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="PRCTR"/>
+      </attribute>
+      <attribute id="MTRL_ID" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="MATNR"/>
+      </attribute>
+      <attribute id="TRANS_UOM_ID" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Base Unit of Measure"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RUNIT"/>
+      </attribute>
+      <attribute id="GL_ACCT_ID" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="General Ledger Account"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RACCT"/>
+      </attribute>
+      <attribute id="LDGR_GROUP_ID" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ledger Group"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="LDGRP"/>
+      </attribute>
+      <attribute id="LOCAL_CURR_ID" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Local Currency"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RHCUR"/>
+      </attribute>
+      <attribute id="DOC_CURR_ID" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RWCUR"/>
+      </attribute>
+      <attribute id="TRADE_PRTNR_CMPNY_ID" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TRADE_PRTNR_CMPNY_ID"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="TRADE_PRTNR_CMPNY_ID"/>
+      </attribute>
+      <attribute id="GL_ACCT_CHILD_ID" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="SAKAN"/>
+      </attribute>
+      <attribute id="PLANT_ID" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="WERKS"/>
+      </attribute>
+      <attribute id="FSCL_YR" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FSCL_YR"/>
+      </attribute>
+      <attribute id="FSCL_MO" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FSCL_MO"/>
+      </attribute>
+      <attribute id="FSCL_YR_MO" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FSCL_YR_MO"/>
+      </attribute>
+      <attribute id="CMPNY_ID" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RBUKRS"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="QTY" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="QTY"/>
+      </measure>
+      <measure id="TRANS_QTY" hidden="false" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TRANS_QTY"/>
+      </measure>
+      <measure id="DOC_CURR_AMT" hidden="false" order="6" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="DOC_CURR_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="DOC_CURR_AMT"/>
+      </measure>
+      <measure id="ORIG_TAX_BASE_LOCAL_CURR_AMT" hidden="false" order="7" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="ORIG_TAX_BASE_LOCAL_CURR_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="ORIG_TAX_BASE_LOCAL_CURR_AMT"/>
+      </measure>
+      <measure id="ORIG_TAX_BASE_DOC_CURR_AMT" hidden="false" order="8" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="ORIG_TAX_BASE_DOC_CURR_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="ORIG_TAX_BASE_DOC_CURR_AMT"/>
+      </measure>
+      <measure id="TAX_LOCAL_CURR_AMT" hidden="false" order="9" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_LOCAL_CURR_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_LOCAL_CURR_AMT"/>
+      </measure>
+      <measure id="TAX_DOC_CURR_AMT" hidden="false" order="10" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_DOC_CURR_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_DOC_CURR_AMT"/>
+      </measure>
+      <measure id="TAX_BASE_LOCAL_CURR_AMT" hidden="false" order="11" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_BASE_LOCAL_CURR_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_BASE_LOCAL_CURR_AMT"/>
+      </measure>
+      <measure id="TAX_BASE_DOC_CURR_AMT" hidden="false" order="12" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_BASE_DOC_CURR_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_BASE_DOC_CURR_AMT"/>
+      </measure>
+      <measure id="WITHHOLDING_TAX_BASE_AMT" hidden="false" order="13" semanticType="amount" aggregationType="sum" engineAggregation="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="WITHHOLDING_TAX_BASE_AMT_CURRENCY">
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="WITHHOLDING_TAX_BASE_AMT"/>
+      </measure>
+      <measure id="BASE_UOM_CNVRSN_NMRTR" order="18" aggregationType="sum" engineAggregation="count" measureType="simple">
+        <descriptions defaultDescription="Numerator for Conversion to Base Units of Measure"/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="UMREZ"/>
+      </measure>
+      <measure id="BASE_UOM_CNVRSN_DNMNTR" order="19" aggregationType="sum" engineAggregation="count" measureType="simple">
+        <descriptions defaultDescription="Denominator for conversion to base units of measure"/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="UMREN"/>
+      </measure>
+      <measure id="MSL" order="24" aggregationType="max" engineAggregation="max" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="MSL"/>
+      </measure>
+      <measure id="LOCAL_CURR_AMT" order="39" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="LOCAL_CURR_AMT"/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="LOCAL_CURR_AMT"/>
+      </measure>
+      <measure id="USD_MO_AVG_AMT" order="40" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="USD_MO_AVG_AMT"/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="LOCAL_CURR_AMT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="249" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="BSEG_BF" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="723"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="723"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="627"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="531"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="531"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="435"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="FirstDay" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="404" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="326" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="LastDay" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="172" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="249" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="249" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

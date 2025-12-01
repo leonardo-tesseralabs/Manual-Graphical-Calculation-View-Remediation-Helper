@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="2.3" id="CV_FSA_TRANSIT_DTL_BSEG_RE" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="true" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CV_FSA_TRANSIT_DTL_BSEG_RE"/>
+  <metadata activatedAt="2024-01-19 19:32:28.0" changedAt="2024-01-16 13:54:06.882"/>
+  <defaultSchema schemaName="SLT_DR0"/>
+  <localVariables>
+    <variable id="I_YEAR" parameter="true">
+      <descriptions defaultDescription="I_YEAR"/>
+      <variableProperties datatype="NVARCHAR" length="4" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="I_MONTH" parameter="true">
+      <descriptions defaultDescription="I_MONTH"/>
+      <variableProperties datatype="NVARCHAR" length="2" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="#CV_FSA_TRANSIT_DTL_BSEG_RE_BASE">
+      <targetVariable name="I_YEAR" resourceUri="/FSA.BGD_JOB.TRANSIT/calculationviews/CV_FSA_TRANSIT_DTL_BSEG_RE_BASE"/>
+      <localVariable>#I_YEAR</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="#CV_FSA_TRANSIT_DTL_BSEG_RE_BASE">
+      <targetVariable name="I_MONTH" resourceUri="/FSA.BGD_JOB.TRANSIT/calculationviews/CV_FSA_TRANSIT_DTL_BSEG_RE_BASE"/>
+      <localVariable>#I_MONTH</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="26"/>
+  <executionHints name="qo_pop_hints" value="USE_HEX_PLAN"/>
+  <dataSources>
+    <DataSource id="CV_FSA_TRANSIT_DTL_BSEG_RE_BASE" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/FSA.BGD_JOB.TRANSIT/calculationviews/CV_FSA_TRANSIT_DTL_BSEG_RE_BASE</resourceUri>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="LastDay$$$$M_TIME_DIMENSION$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:AggregationView" id="RE_BASE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="HWAER"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute aggregationType="sum" id="QTY"/>
+        <viewAttribute aggregationType="sum" id="TRANS_QTY"/>
+        <viewAttribute aggregationType="sum" id="DOC_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="LOCAL_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="ORIG_TAX_BASE_LOCAL_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="ORIG_TAX_BASE_DOC_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="TAX_LOCAL_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="TAX_DOC_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="TAX_BASE_LOCAL_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="TAX_BASE_DOC_CURR_AMT"/>
+        <viewAttribute aggregationType="sum" id="WITHHOLDING_TAX_BASE_AMT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="BSTAT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="FSCL_YR" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>'$$I_YEAR$$'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="FSCL_MO" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'00'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="FSCL_YR_MO" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;FSCL_YR&quot;+&quot;FSCL_MO&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DATA_SRC_CD" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'BSEG RE'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CV_FSA_TRANSIT_DTL_BSEG_RE_BASE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWAER" source="HWAER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTY" source="QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_QTY" source="TRANS_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DOC_CURR_AMT" source="DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAL_CURR_AMT" source="LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_LOCAL_CURR_AMT" source="ORIG_TAX_BASE_LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_DOC_CURR_AMT" source="ORIG_TAX_BASE_DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_LOCAL_CURR_AMT" source="TAX_LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_DOC_CURR_AMT" source="TAX_DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_LOCAL_CURR_AMT" source="TAX_BASE_LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_DOC_CURR_AMT" source="TAX_BASE_DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WITHHOLDING_TAX_BASE_AMT" source="WITHHOLDING_TAX_BASE_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="FirstDay">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="$$I_MONTH$$"/>
+        </viewAttribute>
+        <viewAttribute id="DAY_INT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DAY_INT" source="DAY_INT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="HWAER"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="QTY_C"/>
+        <viewAttribute id="TRANS_QTY_C"/>
+        <viewAttribute id="DOC_CURR_AMT_C"/>
+        <viewAttribute id="LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="ORIG_TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="ORIG_TAX_BASE_DOC_CURR_AMT_C"/>
+        <viewAttribute id="TAX_LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="TAX_DOC_CURR_AMT_C"/>
+        <viewAttribute id="TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="TAX_BASE_DOC_CURR_AMT_C"/>
+        <viewAttribute id="WITHHOLDING_TAX_BASE_AMT_C"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute id="BSTAT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#RE_BASE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWAER" source="HWAER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTY_C" source="QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_QTY_C" source="TRANS_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DOC_CURR_AMT_C" source="DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAL_CURR_AMT_C" source="LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_LOCAL_CURR_AMT_C" source="ORIG_TAX_BASE_LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_DOC_CURR_AMT_C" source="ORIG_TAX_BASE_DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_LOCAL_CURR_AMT_C" source="TAX_LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_DOC_CURR_AMT_C" source="TAX_DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_LOCAL_CURR_AMT_C" source="TAX_BASE_LOCAL_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_DOC_CURR_AMT_C" source="TAX_BASE_DOC_CURR_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WITHHOLDING_TAX_BASE_AMT_C" source="WITHHOLDING_TAX_BASE_AMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+      </input>
+      <input node="#FirstDay">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="FIRST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="YEAR"/>
+      </input>
+      <joinAttribute name="FSCL_YR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="LastDay">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="LAST_DAY"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="$$I_MONTH$$"/>
+        </viewAttribute>
+        <viewAttribute id="MONTH_LAST_DAY">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LastDay$$$$M_TIME_DIMENSION$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_DAY" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH_LAST_DAY" source="MONTH_LAST_DAY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="WITHHOLDING_TAX_BASE_AMT_C"/>
+        <viewAttribute id="TAX_BASE_DOC_CURR_AMT_C"/>
+        <viewAttribute id="TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="TAX_DOC_CURR_AMT_C"/>
+        <viewAttribute id="TAX_LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="ORIG_TAX_BASE_DOC_CURR_AMT_C"/>
+        <viewAttribute id="ORIG_TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="LOCAL_CURR_AMT_C"/>
+        <viewAttribute id="DOC_CURR_AMT_C"/>
+        <viewAttribute id="TRANS_QTY_C"/>
+        <viewAttribute id="QTY_C"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="HWAER"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute id="LAST_DAY"/>
+        <viewAttribute id="BSTAT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WITHHOLDING_TAX_BASE_AMT_C" source="WITHHOLDING_TAX_BASE_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_DOC_CURR_AMT_C" source="TAX_BASE_DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_LOCAL_CURR_AMT_C" source="TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_DOC_CURR_AMT_C" source="TAX_DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_LOCAL_CURR_AMT_C" source="TAX_LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_DOC_CURR_AMT_C" source="ORIG_TAX_BASE_DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_LOCAL_CURR_AMT_C" source="ORIG_TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAL_CURR_AMT_C" source="LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DOC_CURR_AMT_C" source="DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_QTY_C" source="TRANS_QTY_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTY_C" source="QTY_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWAER" source="HWAER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="FIRST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+      </input>
+      <input node="#LastDay">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_DAY" source="LAST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="YEAR"/>
+      </input>
+      <joinAttribute name="FSCL_YR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="FIXED_RATE_CD"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute aggregationType="sum" id="WITHHOLDING_TAX_BASE_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="TAX_BASE_DOC_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="TAX_DOC_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="TAX_LOCAL_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="ORIG_TAX_BASE_DOC_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="ORIG_TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="LOCAL_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="DOC_CURR_AMT_C"/>
+        <viewAttribute aggregationType="sum" id="TRANS_QTY_C"/>
+        <viewAttribute aggregationType="sum" id="QTY_C"/>
+        <viewAttribute id="DATA_SRC_CD"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="FSCL_YR_MO"/>
+        <viewAttribute id="FSCL_MO"/>
+        <viewAttribute id="FSCL_YR"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="TRADE_PRTNR_CMPNY_ID"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="HWAER"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="LDGRP"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="FIRST_DAY"/>
+        <viewAttribute id="LAST_DAY"/>
+        <viewAttribute aggregationType="sum" id="USD_MO_AVG_AMT"/>
+        <viewAttribute id="BSTAT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="LEAD_LDGR_IND" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;BSTAT&quot;='','Y','N')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="MTRL_ID_DSPLY" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'XXX_FMLY'&#xD;
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="RYLTY_IND" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'N'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="GL_ACCT_ID" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'0033001000'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="GL_ACCT_CHILD_ID" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'33001000'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="EXG_TYPE" length="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;FIXED_RATE_CD&quot;='MER','X',if(&quot;FIXED_RATE_CD&quot;='MAR','M','#'))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="CONV_DATE" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;EXG_TYPE&quot;='X',&quot;LAST_DAY&quot;,if(&quot;EXG_TYPE&quot;='M',&quot;FIRST_DAY&quot;,now()))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIXED_RATE_CD" source="FIXED_RATE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WITHHOLDING_TAX_BASE_AMT_C" source="WITHHOLDING_TAX_BASE_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_DOC_CURR_AMT_C" source="TAX_BASE_DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_BASE_LOCAL_CURR_AMT_C" source="TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_DOC_CURR_AMT_C" source="TAX_DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TAX_LOCAL_CURR_AMT_C" source="TAX_LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_DOC_CURR_AMT_C" source="ORIG_TAX_BASE_DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORIG_TAX_BASE_LOCAL_CURR_AMT_C" source="ORIG_TAX_BASE_LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAL_CURR_AMT_C" source="LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DOC_CURR_AMT_C" source="DOC_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRANS_QTY_C" source="TRANS_QTY_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTY_C" source="QTY_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SRC_CD" source="DATA_SRC_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR_MO" source="FSCL_YR_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_MO" source="FSCL_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FSCL_YR" source="FSCL_YR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRADE_PRTNR_CMPNY_ID" source="TRADE_PRTNR_CMPNY_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HWAER" source="HWAER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LDGRP" source="LDGRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_DAY" source="FIRST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_DAY" source="LAST_DAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USD_MO_AVG_AMT" source="LOCAL_CURR_AMT_C"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTAT" source="BSTAT"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Aggregation_2">
+    <descriptions defaultDescription="CV_FSA_TRANSIT_DTL_BSEG_RE"/>
+    <attributes>
+      <attribute id="CMPNY_ID" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="BUKRS"/>
+      </attribute>
+      <attribute id="LDGR_GROUP_ID" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ledger Group"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="LDGRP"/>
+      </attribute>
+      <attribute id="LEAD_LDGR_IND" hidden="false" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="LEAD_LDGR_IND"/>
+      </attribute>
+      <attribute id="LOCAL_CURR_ID" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Local Currency"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="HWAER"/>
+      </attribute>
+      <attribute id="DOC_CURR_ID" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="WAERS"/>
+      </attribute>
+      <attribute id="TRADE_PRTNR_CMPNY_ID" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TRADE_PRTNR_CMPNY_ID"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="TRADE_PRTNR_CMPNY_ID"/>
+      </attribute>
+      <attribute id="PROFIT_CTR_ID" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="PRCTR"/>
+      </attribute>
+      <attribute id="FSCL_YR" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FSCL_YR"/>
+      </attribute>
+      <attribute id="FSCL_MO" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FSCL_MO"/>
+      </attribute>
+      <attribute id="FSCL_YR_MO" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FSCL_YR_MO"/>
+      </attribute>
+      <attribute id="MTRL_ID_DSPLY" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="MTRL_ID_DSPLY"/>
+      </attribute>
+      <attribute id="RYLTY_IND" order="12" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="RYLTY_IND"/>
+      </attribute>
+      <attribute id="GL_ACCT_ID" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL_ACCT_ID"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="GL_ACCT_ID"/>
+      </attribute>
+      <attribute id="GL_ACCT_CHILD_ID" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL_ACCT_CHILD_ID"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="GL_ACCT_CHILD_ID"/>
+      </attribute>
+      <attribute id="DATA_SRC_CD" hidden="false" order="26" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="DATA_SRC_CD"/>
+      </attribute>
+      <attribute id="PLANT_ID" order="27" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="WERKS"/>
+      </attribute>
+      <attribute id="FIRST_DAY" order="28" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FIRST_DAY"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="FIRST_DAY"/>
+      </attribute>
+      <attribute id="LAST_DAY" order="29" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LAST_DAY"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="LAST_DAY"/>
+      </attribute>
+      <attribute id="CONV_DATE" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CONV_DATE"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="CONV_DATE"/>
+      </attribute>
+      <attribute id="EXG_TYPE" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EXG_TYPE"/>
+        <keyMapping columnObjectName="Aggregation_2" columnName="EXG_TYPE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="QTY" order="15" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="QTY_C"/>
+      </measure>
+      <measure id="TRANS_QTY" hidden="false" order="16" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TRANS_QTY_C"/>
+      </measure>
+      <measure id="DOC_CURR_AMT" hidden="false" order="17" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="DOC_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="DOC_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="DOC_CURR_AMT_C"/>
+      </measure>
+      <measure id="LOCAL_CURR_AMT" order="18" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="LOCAL_CURR_AMT"/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="LOCAL_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="LOCAL_CURR_AMT_C"/>
+      </measure>
+      <measure id="ORIG_TAX_BASE_LOCAL_CURR_AMT" hidden="false" order="19" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="ORIG_TAX_BASE_LOCAL_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="ORIG_TAX_BASE_LOCAL_CURR_AMT_C"/>
+      </measure>
+      <measure id="ORIG_TAX_BASE_DOC_CURR_AMT" hidden="false" order="20" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="ORIG_TAX_BASE_DOC_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="ORIG_TAX_BASE_DOC_CURR_AMT_C"/>
+      </measure>
+      <measure id="TAX_LOCAL_CURR_AMT" hidden="false" order="21" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_LOCAL_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_LOCAL_CURR_AMT_C"/>
+      </measure>
+      <measure id="TAX_DOC_CURR_AMT" hidden="false" order="22" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_DOC_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_DOC_CURR_AMT_C"/>
+      </measure>
+      <measure id="TAX_BASE_LOCAL_CURR_AMT" hidden="false" order="23" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_BASE_LOCAL_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_BASE_LOCAL_CURR_AMT_C"/>
+      </measure>
+      <measure id="TAX_BASE_DOC_CURR_AMT" hidden="false" order="24" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="TAX_BASE_DOC_CURR_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="TAX_BASE_DOC_CURR_AMT_C"/>
+      </measure>
+      <measure id="WITHHOLDING_TAX_BASE_AMT" hidden="false" order="25" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions/>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="WITHHOLDING_TAX_BASE_AMT_CURRENCY">
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="WITHHOLDING_TAX_BASE_AMT_C"/>
+      </measure>
+      <measure id="USD_MO_AVG_AMT" order="30" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="USD_MO_AVG_AMT"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="false" outputUnitCurrencyAttributeName="">
+          <client>
+            <value>100</value>
+          </client>
+          <schema schemaName="SLT_DR0"/>
+          <outputDataType datatype="DECIMAL" length="34" scale="4"/>
+          <sourceCurrency>
+            <attribute attributeName="LOCAL_CURR_ID"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+          <targetCurrency>
+            <value>USD</value>
+          </targetCurrency>
+          <referenceDate>
+            <attribute attributeName="CONV_DATE"/>
+          </referenceDate>
+          <exchangeRateTypeAttribute attributeName="EXG_TYPE"/>
+        </currencyConversion>
+        <measureMapping columnObjectName="Aggregation_2" columnName="USD_MO_AVG_AMT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="RE_BASE" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="FirstDay" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="LastDay" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

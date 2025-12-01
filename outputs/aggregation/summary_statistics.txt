@@ -1,0 +1,22 @@
+Summary Statistics for Field Mapping Analysis
+=================================================
+
+Total fields processed: 1,052
+Total unique fields: 341
+Unique fields flagged for review: 98
+Unique source fields flagged for review: 71
+Total tables affected (any mappings): 6
+  - Table names: BSAD, BSEG, BSEG_ADD, BSID, COEP, FAGL_TLDGRP_MAP
+Tables with flagged mappings: 6
+  - Flagged table names: BSAD, BSEG, BSEG_ADD, BSID, COEP, FAGL_TLDGRP_MAP
+Total tables processed (including unchanged): 48
+
+Percentage of fields flagged for review: 9.32%
+
+Files processed:
+- Field mapping detail files: 12
+- Adjacency list files: 24
+
+Output files generated:
+- unique_flagged_field_mappings.csv
+- summary_statistics.txt

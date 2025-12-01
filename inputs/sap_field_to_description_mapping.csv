@@ -1,0 +1,496 @@
+Field Name,Description
+RCLNT,Client
+RLDNR,Ledger in General Ledger Accounting
+RBUKRS,Company Code
+GJAHR,Fiscal Year
+BELNR,Accounting Document Number
+DOCLN,Six-Character Posting Item for Ledger
+RYEAR,General Ledger Fiscal Year
+DOCNR_LD,Ledger specific Accounting Document Number
+RRCTY,Record Type
+RMVCT,Transaction Type
+VORGN,Transaction Type for General Ledger
+VRGNG,CO Business Transaction
+BTTYPE,Business Transaction Category
+CBTTYPE,Business Transaction Type
+CLOSINGSTEP,Closing step
+AWTYP,Reference Transaction
+AWSYS,Logical system of source document
+AWORG,Reference Organizational Units
+AWREF,Reference Document Number
+AWITEM,Reference Document Line Item
+AWITGRP,Group of Reference Document Line Items
+SUBTA,Partial Document to be balanced to zero
+ACCTG_NOTIF_UUID,Accounting Notification Identifier
+OFFSTG_DOCLN,Six-Digit General Ledger Offsetting Entry Line Item
+XREVERSING,Indicator: Item is reversing another item
+XREVERSED,Indicator: Item is reversed
+XTRUEREV,Indicator: True reversal (i.e. cancellation)
+AWTYP_REV,Reversal: Reference Transaction of Document To Be Reversed
+AWORG_REV,Reversal: Reverse Document Reference Organization
+AWREF_REV,Reversal: Reverse Document Reference Document Number
+AWITEM_REV,Reversal: Reference Doc. Line Itm of Document to Be Reversed
+SUBTA_REV,Reversal: Partial Document to be balanced to zero
+XSETTLING,Indicator: Item is settling or transferring another item
+XSETTLED,Indicator: Line item is settled or transferred
+PREC_AWTYP,Preceding Document Reference Transaction
+PREC_AWSYS,Logical System of Preceding Reference Document
+PREC_AWORG,Preceding Document Reference Organizational Units
+PREC_AWREF,Preceding Document Reference Document Number
+PREC_AWITEM,Preceding Reference Document Line Item
+PREC_SUBTA,Preceding Partial Document to be balanced to zero
+PREC_AWMULT,ID of multiple Preceding Document References
+PREC_BUKRS,Preceding Journal Entry Company Code
+PREC_GJAHR,Preceding Journal Entry Fiscal Year
+PREC_BELNR,Preceding Journal Entry Document Number
+PREC_DOCLN,Preceding Journal Entry Line Item
+XSECONDARY,Secondary journal entry
+CLOSING_RUN_ID,UUID of Financial Closing Run
+ORGL_CHANGE,Organizational Change
+SRC_AWTYP,Source Document Type
+SRC_AWSYS,Source Document System
+SRC_AWORG,Organizational Unit of Source Document
+SRC_AWREF,Source Document Number
+SRC_AWITEM,Line Item in Source Document
+SRC_AWSUBIT,Subitem in Source Document
+XCOMMITMENT,Indicator: Commitment
+OBS_REASON,Reason why this item is obsolete
+RTCUR,Currency Key
+RWCUR,Currency key of the original transaction currency
+RHCUR,Local Currency
+RKCUR,Controlling area currency
+RFCCUR,Functional Currency
+ROCUR,Freely Defined Currency 1
+RVCUR,Freely Defined Currency 2
+RBCUR,Freely Defined Currency 3
+RCCUR,Freely Defined Currency 4
+RDCUR,Freely Defined Currency 5
+RECUR,Freely Defined Currency 6
+RFCUR,Freely Defined Currency 7
+RGCUR,Freely Defined Currency 8
+RCO_OCUR,CO Object Currency
+RGM_OCUR,Grant currency
+RUNIT,Base Unit of Measure
+RVUNIT,Unit of Measure for Valuation Quantity
+RRUNIT,Unit of Measure for Reference Quantity
+RMSL_TYPE,Quantity Type Code of the Reference Quantity
+RIUNIT,Unit of Measure for Inventory Quantity
+QUNIT1,Additional Unit of Measure 1
+QUNIT2,Additional Unit of Measure 2
+QUNIT3,Additional Unit of Measure 3
+CO_MEINH,Unit of Measure for CO Valuation Quantity
+RACCT,Account Number
+RCNTR,Cost Center
+PRCTR,Profit Center
+RFAREA,Functional Area
+RBUSA,Business Area
+KOKRS,Controlling Area
+SEGMENT,Segment for Segmental Reporting
+SCNTR,Sender cost center
+PPRCTR,Partner Profit Center
+SFAREA,Partner Functional Area
+SBUSA,Trading Partner's Business Area
+RASSC,Company ID of Trading Partner
+PSEGMENT,Partner Segment for Segmental Reporting
+TSL,Value in Transaction Currency
+WSL,Value in Original Transaction Currency (Document Currency)
+WSL2,Group Valuation Amount in Transaction Currency
+WSL3,Profit-Center Valuation Amount in Transaction Currency
+HSL,Value in Local Currency
+KSL,Value in Group Currency
+FCSL,Amount in Functional Currency
+OSL,Amount in Freely Defined Currency 1
+VSL,Amount in Freely Defined Currency 2
+BSL,Amount in Freely Defined Currency 3
+CSL,Amount in Freely Defined Currency 4
+DSL,Amount in Freely Defined Currency 5
+ESL,Amount in Freely Defined Currency 6
+FSL,Amount in Freely Defined Currency 7
+GSL,Amount in Freely Defined Currency 8
+KFSL,Fixed Value in Group Currency
+KFSL2,Group Valuation Fixed Amount in Global Currency
+KFSL3,PrCtr Valuation Fixed Amount in Global Currency
+PSL,Total Price Variance in Group Currency
+PSL2,Group Valuation Total Price Variance in Global Currency
+PSL3,PrCtr Valuation Total Price Variance in Global Currency
+PFSL,Fixed Price Variance in Group Currency
+PFSL2,Group Valuation Fixed Price Variance in Global Currency
+PFSL3,PrCtr Valuation Fixed Price Variance in Global Currency
+CO_OSL,Value in CO Object Currency
+GM_OSL,Grant Amount in Grant Currency
+HSLALT,Alternative Value in Local Currency
+KSLALT,Alternative Value in Group Currency
+OSLALT,Alternative Value in Freely Defined Currency 1
+VSLALT,Alternative Value in Freely Defined Currency 2
+BSLALT,Alternative Value in Freely Defined Currency 3
+CSLALT,Alternative Value in Freely Defined Currency 4
+DSLALT,Alternative Value in Freely Defined Currency 5
+ESLALT,Alternative Value in Freely Defined Currency 6
+FSLALT,Alternative Value in Freely Defined Currency 7
+GSLALT,Alternative Value in Freely Defined Currency 8
+HSLEXT,External Value in Local Currency
+KSLEXT,External Value in Group Currency
+OSLEXT,External Value in Freely Defined Currency 1
+VSLEXT,External Value in Freely Defined Currency 2
+BSLEXT,External Value in Freely Defined Currency 3
+CSLEXT,External Value in Freely Defined Currency 4
+DSLEXT,External Value in Freely Defined Currency 5
+ESLEXT,External Value in Freely Defined Currency 6
+FSLEXT,External Value in Freely Defined Currency 7
+GSLEXT,External Value in Freely Defined Currency 8
+HVKWRT,Value at Sales Price in Local Currency
+MSL,Quantity
+MFSL,Fixed quantity
+VMSL,Valuation quantity
+VMFSL,Fixed valuation quantity
+RMSL,Reference quantity
+QUANT1,Additional Quantity 1
+QUANT2,Additional Quantity 2
+QUANT3,Additional Quantity 3
+CO_MEGBTR,CO Valuation Quantity
+CO_MEFBTR,CO Valuation Quantity Fix
+HSALK3,Inventory Value in Local Currency
+KSALK3,Inventory Value in Group Currency
+OSALK3,Inventory Value in Another Currency
+VSALK3,Inventory Value in Fourth Currency
+HSALKV,Alternative Inventory Value in Local Currency
+KSALKV,Alternative Inventory Value in Group Currency
+OSALKV,Alternative Inventory Value in Another Currency
+VSALKV,Alternative Inventory Value in Fourth Currency
+HPVPRS,Moving Average Price in Local Currency
+KPVPRS,Moving Average Price in Group Currency
+OPVPRS,Moving Average Price in Another Currency
+VPVPRS,Moving Average Price in Fourth Currency
+HSTPRS,Standard Price in Local Currency
+KSTPRS,Standard Price in Group Currency
+OSTPRS,Standard Price in Another Currency
+VSTPRS,Standard Price in Fourth Currency
+HVKSAL,Inventory Value at Sales Price in Local Currency
+LBKUM,Inventory Quantity
+DRCRK,Debit/Credit Indicator
+POPER,Posting period
+PERIV,Fiscal Year Variant
+FISCYEARPER,Period/year
+BUDAT,Posting Date in the Document
+BLDAT,Document Date in Document
+BLART,Document Type
+BUZEI,Number of Line Item Within Accounting Document
+ZUONR,Assignment Number
+BSCHL,Posting Key
+BSTAT,Document Status
+BUS_TRANS_ITEM_CATEGORY,Business Transaction Item Category
+LINETYPE,Item category
+KTOSL,Transaction Key
+SLALITTYPE,Subledger Account Line Item Type Code
+XSPLITMOD,Item changed by document splitting
+USNAM,User name
+TIMESTAMP,Time Stamp of Creation
+LAST_CHANGE_DATETIME,Time Stamp of Last Change
+EPRCTR,Partner profit center for elimination of internal business
+RHOART,Type of origin object (EC-PCA)
+GLACCOUNT_TYPE,Type of a general ledger account
+KTOPL,Chart of Accounts
+LOKKT,Alternative Account Number in Company Code
+KTOP2,Chart of Accounts According to Country Legislation
+RBUNIT,Consolidation Unit
+RBUPTR,Partner Consolidation Unit
+RCOMP,Company
+RITCLG,Consolidation Chart of Accounts
+RITEM,Financial Statement Item
+SITYP,Subitem Category
+SUBIT,Subitem
+REBZG,Number of the Invoice the Transaction Belongs to
+REBZJ,Fiscal Year of the Relevant Invoice (for Credit Memo)
+REBZZ,Line Item in the Relevant Invoice
+REBZT,Follow-On Document Type
+RBEST,Category of Reference Purchase Order
+EBELN_LOGSYS,Logical System of Purchasing Document
+EBELN,Purchasing Document Number
+EBELP,Item Number of Purchasing Document
+ZEKKN,Sequential Number of Account Assignment
+SGTXT,Item Text
+KDAUF,Sales Order Number
+KDPOS,Item Number in Sales Order
+MATNR,Material Number
+WERKS,Plant
+LIFNR,Account Number of Vendor or Creditor
+KUNNR,Customer Number
+FBUDA,Date on which services rendered
+PEROP_BEG,Billing Period of Performance Start Date
+PEROP_END,Billing Period of Performance End Date
+COCO_NUM,Condition Contract
+WWERT,Translation date
+PRCTR_DRVTN_SOURCE_TYPE,Profit Center Derivation Source Type
+UCB_ID,Breakdown ID
+UCB_SCALE_NUMERATOR,Scale Numerator
+KOART,Account Type
+UMSKZ,Special G/L Indicator
+TAX_COUNTRY,Tax Reporting Country
+MWSKZ,Tax on sales/purchases code
+HBKID,Short Key for a House Bank
+HKTID,ID for Account Details
+VALUT,Value date
+XOPVW,Indicator: Open Item Management?
+AUGDT,Clearing Date
+AUGBL,Document Number of the Clearing Document
+AUGGJ,Fiscal Year of Clearing Document
+OI_REF_TYPE,Open item reference type
+OI_REF_ID,Open item reference ID
+AGING,Aging
+AGING_INCRMNT,Aging Increment
+AFABE,Real depreciation area
+ANLN1,Main Asset Number
+ANLN2,Asset Subnumber
+BZDAT,Asset Value Date
+ANBWA,Asset Transaction Type
+MOVCAT,Classification of Transaction Type
+DEPR_PERIOD,Posting Period of Depreciation
+ANLGR,Group asset
+ANLGR2,Subnumber of group asset
+SETTLEMENT_RULE,Distribution rule group
+ANLKL,Asset Class
+KTOGR,Account determination
+PANL1,Main number partner asset (intercompany transfer)
+PANL2,Partner asset subnumber (intercompany transfer)
+ANLN2_PN,Prima Nota Information for ASSET_SUBNO
+BWASL_PN,Asset Transaction Type
+BZDAT_PN,Prima Nota Information for BZDAT
+UBZDT_PN,Original Value Date of Transaction
+XVABG_PN,Indicator: Post Complete Retirement
+ANBTR_PN,Amount Posted
+PROZS_PN,Asset retirement: Percentage rate
+XMANPROPVAL_PN,Indicator Proportional Values Entered Manually
+KALNR,Cost Estimate Number for Cost Est. w/o Qty Structure
+VPRSV,Price Control Indicator
+MLAST,Material Price Determination: Control
+KZBWS,Valuation of Special Stock
+XOBEW,Vendor Stock Valuation Indicator
+SOBKZ,Special Stock Indicator
+VTSTAMP,Valuation Time Stamp
+MAT_KDAUF,Sales Document Number of Valuated Special Inventory
+MAT_KDPOS,Sales Document Item Number of Valuated Special Inventory
+MAT_PSPNR,WBS Element (internal) of Valuated Special Inventory
+MAT_PS_POSID,WBS Element (external) of Valuated Special Inventory
+MAT_LIFNR,Vendor of Valuated Special Inventory
+BWTAR,Valuation Type
+BWKEY,Valuation Area
+HPEINH,Price Unit in Local Currency
+KPEINH,Price Unit in Group Currency
+OPEINH,Price Unit in Another Currency
+VPEINH,Price Unit in Fourth Currency
+MLPTYP,Original process category
+MLCATEG,Category in Material Update Structure
+QSBVALT,Procurement alternative/process
+QSPROCESS,Production Process
+PERART,Type of period
+MLPOSNR,Item in Material Ledger Document
+INV_MOV_CATEG,Balance Sheet Valuation: Inventory Movement Category
+BUKRS_SENDER,Company Code in Sender System
+RACCT_SENDER,G/L Account Number in Sender System
+ACCAS_SENDER,Account Assignment in Sender System
+ACCASTY_SENDER,Object Type in Sender System
+OBJNR,Object number
+HRKFT,CO key subnumber
+HKGRP,Origin Group as Subdivision of Cost Element
+PAROB1,Partner object (always filled)
+PAROBSRC,Source of PAROB: PAROB1 or type of partner object
+USPOB,Source Object (Cost Center/Activity Type)
+CO_BELKZ,CO Debit/Credit Indicator
+CO_BEKNZ,Debit/Credit Indicator (Origin)
+BELTP,Debit type
+MUVFLG,Quantity Complete / Incomplete
+GKONT,Offsetting Account Number
+GKOAR,Offsetting Account Type
+ERLKZ,Completion indicator for line item
+PERNR,Personnel Number
+PAOBJNR,Profitability Segment Number (CO-PA)
+PROF_SEG_TYPE,Type of Profitability Segment
+XPAOBJNR_CO_REL,Indicator: Profitability segm. relevant for CO compatibility
+SCOPE,Object Class
+LOGSYSO,Logical system of object
+PBUKRS,Company code of partner
+PSCOPE,Partner object class
+LOGSYSP,Logical system of partner object
+BWSTRAT,Strategy for Determining an Allocation Price
+OBJNR_HK,Object Number of Origin Object
+AUFNR_ORG,Origin Order Number
+UKOSTL,Origin cost center
+ULSTAR,Origin activity
+UPRZNR,Source: Business Process
+UPRCTR,Origin Profit Center
+UMATNR,Origin Material Number
+VARC_UACCT,Origin G/L Account of a Variance
+VARC_HKGRP,Variance Origin Group
+ACCAS,Account Assignment
+ACCASTY,Object Type
+LSTAR,Activity Type
+AUFNR,Order Number
+AUTYP,Order category
+PS_PSP_PNR,Work Breakdown Structure Element (WBS Element)
+PS_POSID,Work Breakdown Structure Element (WBS Element)
+PS_PRJ_PNR,Project (internal)
+PS_PSPID,Project Definition
+NPLNR,Network Number for Account Assignment
+NPLNR_VORGN,Operation/Activity Number
+PRZNR,Business Process
+KSTRG,Cost Object
+BEMOT,Accounting Indicator
+RSRCE,Resource
+QMNUM,Notification No
+SERVICE_DOC_TYPE,Service Document Type
+SERVICE_DOC_ID,Service Document ID
+SERVICE_DOC_ITEM_ID,Service Document Item ID
+SERVICE_CONTRACT_TYPE,Service Contract Type
+SERVICE_CONTRACT_ID,Service Contract ID
+SERVICE_CONTRACT_ITEM_ID,Service Contract Item ID
+SOLUTION_ORDER_ID,Solution Order ID
+SOLUTION_ORDER_ITEM_ID,Solution Order Item ID
+VTKEY,Identification of a Provider Contract
+VTPOS,Contract: Item Number
+RA_CONTRACT_ID,Revenue Accounting Contract ID
+RA_POB_ID,Performance Obligation ID
+ERKRS,Operating concern
+PACCAS,Partner Account Assignment
+PACCASTY,Partner object type
+PLSTAR,Partner activity
+PAUFNR,Partner order number
+PAUTYP,Partner Order Category
+PPS_PSP_PNR,Partner Work Breakdown Structure Element (internal ID)
+PPS_POSID,Partner Work Breakdown Structure Element
+PPS_PRJ_PNR,Partner Project (internal ID)
+PPS_PSPID,Partner Project
+PKDAUF,Number of Partner Sales Order
+PKDPOS,Partner Sales Order Item
+PPAOBJNR,Partner profitability segment number (CO-PA)
+PNPLNR,Partner Network
+PNPLNR_VORGN,Partner operation number
+PPRZNR,Partner business process
+PKSTRG,Partner cost object
+PSERVICE_DOC_TYPE,Partner Service Document Type
+PSERVICE_DOC_ID,Partner Service Document ID
+PSERVICE_DOC_ITEM_ID,Partner Service Document Item ID
+CO_ACCASTY_N1,Type of first statistical account assignment
+CO_ACCASTY_N2,Type of second statistical account assignment
+CO_ACCASTY_N3,Type of third statistical account assignment
+CO_ZLENR,Document Item Number
+CO_BELNR,Document Number
+CO_BUZEI,Posting row
+CO_BUZEI1,Posting row of CO item in first additional valuation
+CO_BUZEI2,Posting row of CO item in second additional valuation
+CO_BUZEI5,Posting row of CO item in valuation view 5
+CO_BUZEI6,Posting row of CO item in valuation view 6
+CO_BUZEI7,Posting row of CO item in valuation view 7
+CO_REFBZ,Posting row of reference document
+CO_REFBZ1,Posting row of reference document in first add'l valuation
+CO_REFBZ2,Posting row of reference document in second add'l valuation
+CO_REFBZ5,Posting row of reference document in valuation view 5
+CO_REFBZ6,Posting row of reference document in valuation view 6
+CO_REFBZ7,Posting row of reference document in valuation view 7
+OVERTIMECAT,Overtime Category
+WORK_ITEM_ID,Work Item ID
+ARBID,Object ID of the resource
+VORNR,Operation/Activity Number
+AUFPS,Order item number
+UVORN,Suboperation
+EQUNR,Equipment Number
+TPLNR,Functional Location
+ISTRU,Assembly
+ILART,Maintenance activity type
+PLKNZ,Maintenance order planning indicator
+ARTPR,Priority Type
+PRIOK,Priority
+MAUFNR,Number of Superior Order
+MATKL_MM,Material Group
+PAUFPS,Partner Order Item Number
+VORNR_ORG,Origin Operation Number
+PLANNED_PARTS_WORK,Planned Parts/Work
+FKART,Billing Type
+VKORG,Sales Organization
+VTWEG,Distribution Channel
+SPART,Division
+MATNR_COPA,Product for profitability analysis
+MATKL,Material Group
+KDGRP,Customer group
+LAND1,Country Key
+BRSCH,Industry key
+BZIRK,Sales District
+KUNRE,Bill-To Party
+KUNWE,Ship-To Party
+KONZS,Group key
+RE_BUKRS,Cash Ledger: Company Code for Expense/Revenue
+RE_ACCOUNT,Cash Ledger: Expense or Revenue Account
+FIKRS,Financial Management Area
+FIPEX,Commitment item
+FISTL,Funds Center
+MEASURE,Funded Program
+RFUND,Fund
+RGRANT_NBR,Grant
+RBUDGET_PD,FM: Budget Period
+SFUND,Partner Fund
+SGRANT_NBR,Partner Grant
+SBUDGET_PD,FM: Partner Budget Period
+BDGT_ACCOUNT,Budget Account
+BDGT_ACCOUNT_COCODE,Budget Account Company Code
+BDGT_CNSMPN_DATE,Budget Consumption Date
+BDGT_CNSMPN_PERIOD,CC Fiscal Period for Budget Consumption Date
+BDGT_CNSMPN_YEAR,CC Fiscal Year for Budget Consumption Date
+BDGT_RELEVANT,Budget-Relevant Indicator
+BDGT_CNSMPN_TYPE,Budget Consumption Type
+BDGT_CNSMPN_AMOUNT_TYPE,Budget Consumption Amount Type
+RSPONSORED_PROG,Sponsored Program
+RSPONSORED_CLASS,Sponsored Class
+RBDGT_VLDTY_NBR,Budget Validity Number
+KBLNR,Document number for earmarked funds
+KBLPOS,Earmarked Funds: Document Item
+FS_PRODUCT_GROUP,Product Group (Financial Services)
+BRANCH_ID,Branch (Financial Services)
+DATASOURCE_ID,Data Source
+VNAME,Joint Venture
+EGRUP,Equity Group
+RECID,Recovery Indicator
+VPTNR,Partner Account Number
+BTYPE,Payroll Type
+ETYPE,Equity Type
+PRODPER,Production Month (Date to find period and year)
+BILLM,Billing Month
+POM,Processing operational month
+CBRUNID,Cutback Run ID (Joint Venture Accounting)
+JVACTIVITY,JVA Activity (Joint Venture Accounting)
+PVNAME,Partner Venture (Joint Venture Accounting)
+PEGRUP,Partner Equity Group (Joint Venture Accounting)
+S_RECIND,Allocation: Sender Credit Recovery Indicator
+CBRACCT,Cutback Account (Joint Venture Accounting)
+CBOBJNR,Cutback Cost Object (Joint Venture Accounting)
+SWENR,Business Entity Number
+SGENR,Building Number
+SGRNR,Land Number for BE
+SMENR,Number of Rental Unit
+RECNNR,Real Estate Contract Number
+SNKSL,Service Charge Key
+SEMPSL,Settlement Unit
+DABRZ,Reference Date for Settlement
+PSWENR,Business Entity Number
+PSGENR,Partner Building Number
+PSGRNR,Partner Land Number for BE
+PSMENR,Partner Number of Rental Unit
+PRECNNR,Partner Real Estate Contract Number
+PSNKSL,Partner Service Charge Key
+PSEMPSL,Partner Settlement Unit
+PDABRZ,Partner Reference Date for Settlement
+ACROBJTYPE,Type of the Accrual Object
+ACRLOGSYS,Logical System of the Accrual Object
+ACROBJ_ID,Identifier of the Accrual Object
+ACRSOBJ_ID,Identifier of the Accrual Subobject
+ACRITMTYPE,Type of the Item of the Accrual Subobject
+ACRREFOBJ_ID,Identifier of the Accrual Reference Object
+ACRVALDAT,Accrual Value Date
+VALOBJTYPE,Type of the Financial Valuation Object
+VALOBJ_ID,Identifier of the Financial Valuation Object
+VALSOBJ_ID,Identifier of the Financial Valuation Subobject
+NETDT,Net Due Date
+RISK_CLASS,Risk Class
+FUP_ACTION,Follow-up action for this Universal Journal Entry Line Item
+SDM_VERSION,SDM: Version field for ACDOCA
+MIG_SOURCE,Source of a migrated journal entry item
+MIG_DOCLN,Item ID of migrated G/L line item
+_DATAAGING,Data Filter Value for Data Aging

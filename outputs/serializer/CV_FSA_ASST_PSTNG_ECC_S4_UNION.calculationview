@@ -1,0 +1,1911 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CV_FSA_ASST_PSTNG_ECC_S4_UNION" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CV_FSA_ASST_PSTNG_ECC_S4_UNION"/>
+  <metadata activatedAt="2025-10-18 20:08:17.0" changedAt="2025-10-18 20:07:51.22"/>
+  <defaultSchema schemaName="SLT_DR0"/>
+  <localVariables>
+    <variable id="VAR_PSTNG_PER">
+      <descriptions defaultDescription="Select Posting Period (YYYYMM)"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="VAR_BUKRS_ANLA">
+      <descriptions defaultDescription="Select Company"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="VAR_ANLKL_ANLA">
+      <descriptions defaultDescription="Select Asset Class"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="VAR_ANLN1_ANLA">
+      <descriptions defaultDescription="Select Asset Number"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ECC_CUTOFF" parameter="true">
+      <descriptions defaultDescription="ECC_CUTOFF"/>
+      <variableProperties datatype="NVARCHAR" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <derivationRule inputEnabled="false">
+          <resultColumn schemaName="FSA" columnObjectName="FDM_VARIABLES" columnName="LOW"/>
+          <columnFilter columnName="VARIABLE">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ECC_CUTOFF"/>
+          </columnFilter>
+        </derivationRule>
+      </variableProperties>
+    </variable>
+    <variable id="S4_CUTOFF" parameter="true">
+      <descriptions defaultDescription="S4_CUTOFF"/>
+      <variableProperties datatype="NVARCHAR" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <derivationRule inputEnabled="false">
+          <resultColumn schemaName="FSA" columnObjectName="FDM_VARIABLES" columnName="LOW"/>
+          <columnFilter columnName="VARIABLE">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="S4_CUTOFF"/>
+          </columnFilter>
+        </derivationRule>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="45"/>
+  <dataSources>
+    <DataSource id="ANEP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLT_DR0" columnObjectName="ANEP"/>
+    </DataSource>
+    <DataSource id="ANEA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLT_DR0" columnObjectName="ANEA"/>
+    </DataSource>
+    <DataSource id="ANEK" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLT_DR0" columnObjectName="ANEK"/>
+    </DataSource>
+    <DataSource id="ANEK_S4$$$$ANEK$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLTS4" columnObjectName="ANEK"/>
+    </DataSource>
+    <DataSource id="ANEP_S4$$$$ANEP$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLTS4" columnObjectName="ANEP"/>
+    </DataSource>
+    <DataSource id="ANEAK_S4$$$$ANEA$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLTS4" columnObjectName="ANEA"/>
+    </DataSource>
+    <DataSource id="BKPF" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLT_DR0" columnObjectName="BKPF"/>
+    </DataSource>
+    <DataSource id="BKPF_S4$$$$BKPF$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SLTS4" columnObjectName="BKPF"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:AggregationView" id="ANEP_ECC">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="ANLN1"/>
+        <viewAttribute id="ANLN2"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="LNRAN"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute aggregationType="sum" id="ZINSB"/>
+        <viewAttribute aggregationType="sum" id="NAFAB"/>
+        <viewAttribute aggregationType="sum" id="SAFAB"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN" source="LNRAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="ANEA_ECC">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute aggregationType="sum" id="VERKO"/>
+        <viewAttribute aggregationType="sum" id="INVZL"/>
+        <viewAttribute aggregationType="sum" id="INVZV"/>
+        <viewAttribute aggregationType="sum" id="AUFNL"/>
+        <viewAttribute aggregationType="sum" id="NAFAV"/>
+        <viewAttribute aggregationType="sum" id="AUFNV"/>
+        <viewAttribute aggregationType="sum" id="NAFAL"/>
+        <viewAttribute aggregationType="sum" id="AUFWV"/>
+        <viewAttribute aggregationType="sum" id="AUFWL"/>
+        <viewAttribute aggregationType="sum" id="ERLBT"/>
+        <viewAttribute aggregationType="sum" id="SAFAV"/>
+        <viewAttribute aggregationType="sum" id="SAFAL"/>
+        <viewAttribute aggregationType="sum" id="SANWV"/>
+        <viewAttribute aggregationType="sum" id="MAFAV"/>
+        <viewAttribute aggregationType="sum" id="MAFAL"/>
+        <viewAttribute aggregationType="sum" id="AAFAV"/>
+        <viewAttribute aggregationType="sum" id="AAFAL"/>
+        <viewAttribute id="MANDT_ANEA"/>
+        <viewAttribute id="BUKRS_ANEA"/>
+        <viewAttribute id="ANLN1_ANEA"/>
+        <viewAttribute id="ANLN2_ANEA"/>
+        <viewAttribute id="GJAHR_ANEA"/>
+        <viewAttribute id="LNRAN_ANEA"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEA" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEA" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEA" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEA" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEA" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEA" source="LNRAN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="ANEK_ECC">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="ANEK_Awkey" length="100" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;BELNR_ANEK&quot;+&quot;AWORG_ANEK&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="YR_MO" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR_ANEK&quot; + &quot;MONAT_ANEK&quot; </formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ANEK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="ANEK_S4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="ANEK_Awkey" length="100" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;BELNR_ANEK&quot;+&quot;AWORG_ANEK&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="YR_MO" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR_ANEK&quot; + &quot;MONAT_ANEK&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ANEK_S4$$$$ANEK$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="YR_MO"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEK_S4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YR_MO" source="YR_MO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+      </input>
+      <filter>int(&quot;YR_MO&quot;) &lt; int('$$S4_CUTOFF$$')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="YR_MO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEK_ECC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YR_MO" source="YR_MO"/>
+      </input>
+      <filter>int(&quot;YR_MO&quot;) &lt; int('$$ECC_CUTOFF$$')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1_ECC" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEP"/>
+        <viewAttribute id="BUKRS_ANEP"/>
+        <viewAttribute id="ANLN1_ANEP"/>
+        <viewAttribute id="ANLN2_ANEP"/>
+        <viewAttribute id="GJAHR_ANEP"/>
+        <viewAttribute id="LNRAN_ANEP"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute id="ZINSB"/>
+        <viewAttribute id="NAFAB"/>
+        <viewAttribute id="SAFAB"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEP_ECC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEK"/>
+      </input>
+      <joinAttribute name="MANDT_ANEP"/>
+      <joinAttribute name="BUKRS_ANEP"/>
+      <joinAttribute name="ANLN1_ANEP"/>
+      <joinAttribute name="ANLN2_ANEP"/>
+      <joinAttribute name="GJAHR_ANEP"/>
+      <joinAttribute name="LNRAN_ANEP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2_ECC" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEP"/>
+        <viewAttribute id="BUKRS_ANEP"/>
+        <viewAttribute id="ANLN1_ANEP"/>
+        <viewAttribute id="ANLN2_ANEP"/>
+        <viewAttribute id="GJAHR_ANEP"/>
+        <viewAttribute id="LNRAN_ANEP"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute id="ZINSB"/>
+        <viewAttribute id="NAFAB"/>
+        <viewAttribute id="SAFAB"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="VERKO"/>
+        <viewAttribute id="INVZL"/>
+        <viewAttribute id="INVZV"/>
+        <viewAttribute id="AUFNL"/>
+        <viewAttribute id="NAFAV"/>
+        <viewAttribute id="AUFNV"/>
+        <viewAttribute id="NAFAL"/>
+        <viewAttribute id="AUFWV"/>
+        <viewAttribute id="AUFWL"/>
+        <viewAttribute id="ERLBT"/>
+        <viewAttribute id="SAFAV"/>
+        <viewAttribute id="SAFAL"/>
+        <viewAttribute id="SANWV"/>
+        <viewAttribute id="MAFAV"/>
+        <viewAttribute id="MAFAL"/>
+        <viewAttribute id="AAFAV"/>
+        <viewAttribute id="AAFAL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1_ECC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+      </input>
+      <input node="#ANEA_ECC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+      </input>
+      <joinAttribute name="MANDT_ANEP"/>
+      <joinAttribute name="BUKRS_ANEP"/>
+      <joinAttribute name="ANLN1_ANEP"/>
+      <joinAttribute name="ANLN2_ANEP"/>
+      <joinAttribute name="GJAHR_ANEP"/>
+      <joinAttribute name="LNRAN_ANEP"/>
+      <joinAttribute name="AFABE"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="ANEP_S4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="ANLN1"/>
+        <viewAttribute id="ANLN2"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="LNRAN"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute aggregationType="sum" id="NAFAB"/>
+        <viewAttribute aggregationType="sum" id="SAFAB"/>
+        <viewAttribute aggregationType="sum" id="ZINSB"/>
+        <viewAttribute id="AUGLN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEP_S4$$$$ANEP$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN" source="LNRAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1_S4" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEP"/>
+        <viewAttribute id="BUKRS_ANEP"/>
+        <viewAttribute id="ANLN1_ANEP"/>
+        <viewAttribute id="ANLN2_ANEP"/>
+        <viewAttribute id="GJAHR_ANEP"/>
+        <viewAttribute id="LNRAN_ANEP"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute id="NAFAB"/>
+        <viewAttribute id="SAFAB"/>
+        <viewAttribute id="ZINSB"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEP_S4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEK"/>
+      </input>
+      <joinAttribute name="MANDT_ANEP"/>
+      <joinAttribute name="BUKRS_ANEP"/>
+      <joinAttribute name="ANLN1_ANEP"/>
+      <joinAttribute name="ANLN2_ANEP"/>
+      <joinAttribute name="GJAHR_ANEP"/>
+      <joinAttribute name="LNRAN_ANEP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="ANEAK_S4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEA"/>
+        <viewAttribute id="BUKRS_ANEA"/>
+        <viewAttribute id="ANLN1_ANEA"/>
+        <viewAttribute id="ANLN2_ANEA"/>
+        <viewAttribute id="GJAHR_ANEA"/>
+        <viewAttribute id="LNRAN_ANEA"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute aggregationType="sum" id="AUFWV"/>
+        <viewAttribute aggregationType="sum" id="INVZV"/>
+        <viewAttribute aggregationType="sum" id="NAFAV"/>
+        <viewAttribute aggregationType="sum" id="SAFAV"/>
+        <viewAttribute aggregationType="sum" id="AAFAV"/>
+        <viewAttribute aggregationType="sum" id="MAFAV"/>
+        <viewAttribute aggregationType="sum" id="AUFNV"/>
+        <viewAttribute aggregationType="sum" id="AUFWL"/>
+        <viewAttribute aggregationType="sum" id="INVZL"/>
+        <viewAttribute aggregationType="sum" id="NAFAL"/>
+        <viewAttribute aggregationType="sum" id="SAFAL"/>
+        <viewAttribute aggregationType="sum" id="AAFAL"/>
+        <viewAttribute aggregationType="sum" id="MAFAL"/>
+        <viewAttribute aggregationType="sum" id="AUFNL"/>
+        <viewAttribute aggregationType="sum" id="ERLBT"/>
+        <viewAttribute aggregationType="sum" id="VERKO"/>
+        <viewAttribute aggregationType="sum" id="SANWV"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ANEAK_S4$$$$ANEA$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEA" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEA" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEA" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEA" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEA" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEA" source="LNRAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2_S4" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEP"/>
+        <viewAttribute id="BUKRS_ANEP"/>
+        <viewAttribute id="ANLN1_ANEP"/>
+        <viewAttribute id="ANLN2_ANEP"/>
+        <viewAttribute id="GJAHR_ANEP"/>
+        <viewAttribute id="LNRAN_ANEP"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute id="NAFAB"/>
+        <viewAttribute id="SAFAB"/>
+        <viewAttribute id="ZINSB"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="AUFWV"/>
+        <viewAttribute id="INVZV"/>
+        <viewAttribute id="NAFAV"/>
+        <viewAttribute id="SAFAV"/>
+        <viewAttribute id="AAFAV"/>
+        <viewAttribute id="MAFAV"/>
+        <viewAttribute id="AUFNV"/>
+        <viewAttribute id="AUFWL"/>
+        <viewAttribute id="INVZL"/>
+        <viewAttribute id="NAFAL"/>
+        <viewAttribute id="SAFAL"/>
+        <viewAttribute id="AAFAL"/>
+        <viewAttribute id="MAFAL"/>
+        <viewAttribute id="AUFNL"/>
+        <viewAttribute id="ERLBT"/>
+        <viewAttribute id="VERKO"/>
+        <viewAttribute id="SANWV"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1_S4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+      </input>
+      <input node="#ANEAK_S4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+      </input>
+      <joinAttribute name="MANDT_ANEP"/>
+      <joinAttribute name="BUKRS_ANEP"/>
+      <joinAttribute name="ANLN1_ANEP"/>
+      <joinAttribute name="ANLN2_ANEP"/>
+      <joinAttribute name="GJAHR_ANEP"/>
+      <joinAttribute name="LNRAN_ANEP"/>
+      <joinAttribute name="AFABE"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="BKPF_ECC">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_BKPF"/>
+        <viewAttribute id="BUKRS_BKPF"/>
+        <viewAttribute id="BELNR_BKPF"/>
+        <viewAttribute id="BLART_BKPF"/>
+        <viewAttribute id="WAERS_BKPF"/>
+        <viewAttribute id="AWTYP_BKPF"/>
+        <viewAttribute id="AWKEY_BKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#BKPF">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_BKPF" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_BKPF" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_BKPF" source="BELNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLART_BKPF" source="BLART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS_BKPF" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_BKPF" source="AWTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWKEY_BKPF" source="AWKEY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3_ECC" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEP"/>
+        <viewAttribute id="BUKRS_ANEP"/>
+        <viewAttribute id="ANLN1_ANEP"/>
+        <viewAttribute id="ANLN2_ANEP"/>
+        <viewAttribute id="GJAHR_ANEP"/>
+        <viewAttribute id="LNRAN_ANEP"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute id="ZINSB"/>
+        <viewAttribute id="NAFAB"/>
+        <viewAttribute id="SAFAB"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="VERKO"/>
+        <viewAttribute id="INVZL"/>
+        <viewAttribute id="INVZV"/>
+        <viewAttribute id="AUFNL"/>
+        <viewAttribute id="NAFAV"/>
+        <viewAttribute id="AUFNV"/>
+        <viewAttribute id="NAFAL"/>
+        <viewAttribute id="AUFWV"/>
+        <viewAttribute id="AUFWL"/>
+        <viewAttribute id="ERLBT"/>
+        <viewAttribute id="SAFAV"/>
+        <viewAttribute id="SAFAL"/>
+        <viewAttribute id="SANWV"/>
+        <viewAttribute id="MAFAV"/>
+        <viewAttribute id="MAFAL"/>
+        <viewAttribute id="AAFAV"/>
+        <viewAttribute id="AAFAL"/>
+        <viewAttribute id="BELNR_BKPF"/>
+        <viewAttribute id="BLART_BKPF"/>
+        <viewAttribute id="WAERS_BKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2_ECC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+      </input>
+      <input node="#BKPF_ECC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_BKPF" source="BELNR_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLART_BKPF" source="BLART_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS_BKPF" source="WAERS_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="AWKEY_BKPF"/>
+      </input>
+      <joinAttribute name="MANDT_ANEK"/>
+      <joinAttribute name="BUKRS_ANEK"/>
+      <joinAttribute name="AWTYP_ANEK"/>
+      <joinAttribute name="ANEK_Awkey"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="BKPF_S4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_BKPF"/>
+        <viewAttribute id="BUKRS_BKPF"/>
+        <viewAttribute id="BELNR_BKPF"/>
+        <viewAttribute id="BLART_BKPF"/>
+        <viewAttribute id="WAERS_BKPF"/>
+        <viewAttribute id="AWTYP_BKPF"/>
+        <viewAttribute id="AWKEY_BKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#BKPF_S4$$$$BKPF$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_BKPF" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_BKPF" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_BKPF" source="BELNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLART_BKPF" source="BLART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS_BKPF" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_BKPF" source="AWTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWKEY_BKPF" source="AWKEY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3_S4" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEP"/>
+        <viewAttribute id="BUKRS_ANEP"/>
+        <viewAttribute id="ANLN1_ANEP"/>
+        <viewAttribute id="ANLN2_ANEP"/>
+        <viewAttribute id="GJAHR_ANEP"/>
+        <viewAttribute id="LNRAN_ANEP"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute id="NAFAB"/>
+        <viewAttribute id="SAFAB"/>
+        <viewAttribute id="ZINSB"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="AUFWV"/>
+        <viewAttribute id="INVZV"/>
+        <viewAttribute id="NAFAV"/>
+        <viewAttribute id="SAFAV"/>
+        <viewAttribute id="AAFAV"/>
+        <viewAttribute id="MAFAV"/>
+        <viewAttribute id="AUFNV"/>
+        <viewAttribute id="AUFWL"/>
+        <viewAttribute id="INVZL"/>
+        <viewAttribute id="NAFAL"/>
+        <viewAttribute id="SAFAL"/>
+        <viewAttribute id="AAFAL"/>
+        <viewAttribute id="MAFAL"/>
+        <viewAttribute id="AUFNL"/>
+        <viewAttribute id="ERLBT"/>
+        <viewAttribute id="VERKO"/>
+        <viewAttribute id="SANWV"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+        <viewAttribute id="BELNR_BKPF"/>
+        <viewAttribute id="BLART_BKPF"/>
+        <viewAttribute id="WAERS_BKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2_S4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+      </input>
+      <input node="#BKPF_S4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_BKPF" source="BELNR_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLART_BKPF" source="BLART_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS_BKPF" source="WAERS_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="AWKEY_BKPF"/>
+      </input>
+      <joinAttribute name="MANDT_ANEK"/>
+      <joinAttribute name="BUKRS_ANEK"/>
+      <joinAttribute name="AWTYP_ANEK"/>
+      <joinAttribute name="ANEK_Awkey"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_ANEP"/>
+        <viewAttribute id="BUKRS_ANEP"/>
+        <viewAttribute id="ANLN1_ANEP"/>
+        <viewAttribute id="ANLN2_ANEP"/>
+        <viewAttribute id="GJAHR_ANEP"/>
+        <viewAttribute id="LNRAN_ANEP"/>
+        <viewAttribute id="AFABE"/>
+        <viewAttribute id="BWASL"/>
+        <viewAttribute id="ANUPD"/>
+        <viewAttribute id="AUGLN"/>
+        <viewAttribute id="ANBTR"/>
+        <viewAttribute id="ZINSB"/>
+        <viewAttribute id="NAFAB"/>
+        <viewAttribute id="SAFAB"/>
+        <viewAttribute id="BZDAT_ANEP"/>
+        <viewAttribute id="BUZEI_ANEP"/>
+        <viewAttribute id="MANDT_ANEK"/>
+        <viewAttribute id="BUKRS_ANEK"/>
+        <viewAttribute id="ANLN1_ANEK"/>
+        <viewAttribute id="ANLN2_ANEK"/>
+        <viewAttribute id="GJAHR_ANEK"/>
+        <viewAttribute id="LNRAN_ANEK"/>
+        <viewAttribute id="MONAT_ANEK"/>
+        <viewAttribute id="CPUTM_ANEK"/>
+        <viewAttribute id="SGTXT_ANEK"/>
+        <viewAttribute id="AWTYP_ANEK"/>
+        <viewAttribute id="TCODE_ANEK"/>
+        <viewAttribute id="MEINS_ANEK"/>
+        <viewAttribute id="MENGE_ANEK"/>
+        <viewAttribute id="USNAM_ANEK"/>
+        <viewAttribute id="BLDAT_ANEK"/>
+        <viewAttribute id="CPUDT_ANEK"/>
+        <viewAttribute id="GLVOR_ANEK"/>
+        <viewAttribute id="BUDAT_ANEK"/>
+        <viewAttribute id="ANLU1_ANEK"/>
+        <viewAttribute id="ANLU2_ANEK"/>
+        <viewAttribute id="BELNR_ANEK"/>
+        <viewAttribute id="AWORG_ANEK"/>
+        <viewAttribute id="PBUKR_ANEK"/>
+        <viewAttribute id="VORGN_ANEK"/>
+        <viewAttribute id="VBUND_ANEK"/>
+        <viewAttribute id="ANEK_Awkey"/>
+        <viewAttribute id="VERKO"/>
+        <viewAttribute id="INVZL"/>
+        <viewAttribute id="INVZV"/>
+        <viewAttribute id="AUFNL"/>
+        <viewAttribute id="NAFAV"/>
+        <viewAttribute id="AUFNV"/>
+        <viewAttribute id="NAFAL"/>
+        <viewAttribute id="AUFWV"/>
+        <viewAttribute id="AUFWL"/>
+        <viewAttribute id="ERLBT"/>
+        <viewAttribute id="SAFAV"/>
+        <viewAttribute id="SAFAL"/>
+        <viewAttribute id="SANWV"/>
+        <viewAttribute id="MAFAV"/>
+        <viewAttribute id="MAFAL"/>
+        <viewAttribute id="AAFAV"/>
+        <viewAttribute id="AAFAL"/>
+        <viewAttribute id="BELNR_BKPF"/>
+        <viewAttribute id="BLART_BKPF"/>
+        <viewAttribute id="WAERS_BKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_3_ECC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_BKPF" source="BELNR_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLART_BKPF" source="BLART_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS_BKPF" source="WAERS_BKPF"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_3_S4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEP" source="MANDT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEP" source="BUKRS_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEP" source="ANLN1_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEP" source="ANLN2_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEP" source="GJAHR_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEP" source="LNRAN_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AFABE" source="AFABE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWASL" source="BWASL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANUPD" source="ANUPD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUGLN" source="AUGLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANBTR" source="ANBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZINSB" source="ZINSB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAB" source="NAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAB" source="SAFAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BZDAT_ANEP" source="BZDAT_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUZEI_ANEP" source="BUZEI_ANEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_ANEK" source="MANDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS_ANEK" source="BUKRS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_ANEK" source="ANLN1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_ANEK" source="ANLN2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR_ANEK" source="GJAHR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LNRAN_ANEK" source="LNRAN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONAT_ANEK" source="MONAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUTM_ANEK" source="CPUTM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SGTXT_ANEK" source="SGTXT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWTYP_ANEK" source="AWTYP_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCODE_ANEK" source="TCODE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS_ANEK" source="MEINS_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_ANEK" source="MENGE_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM_ANEK" source="USNAM_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_ANEK" source="BLDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT_ANEK" source="CPUDT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLVOR_ANEK" source="GLVOR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_ANEK" source="BUDAT_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU1_ANEK" source="ANLU1_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLU2_ANEK" source="ANLU2_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_ANEK" source="BELNR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AWORG_ANEK" source="AWORG_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PBUKR_ANEK" source="PBUKR_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN_ANEK" source="VORGN_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND_ANEK" source="VBUND_ANEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANEK_Awkey" source="ANEK_Awkey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERKO" source="VERKO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZL" source="INVZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INVZV" source="INVZV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNL" source="AUFNL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAV" source="NAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNV" source="AUFNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAFAL" source="NAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWV" source="AUFWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFWL" source="AUFWL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERLBT" source="ERLBT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAV" source="SAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAFAL" source="SAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SANWV" source="SANWV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAV" source="MAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAFAL" source="MAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAV" source="AAFAV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AAFAL" source="AAFAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR_BKPF" source="BELNR_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLART_BKPF" source="BLART_BKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS_BKPF" source="WAERS_BKPF"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT_ANEP" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT_ANEP"/>
+      </attribute>
+      <attribute id="BUKRS_ANEP" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BUKRS_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="BUKRS_ANEP"/>
+      </attribute>
+      <attribute id="ANLN1_ANEP" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN1_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLN1_ANEP"/>
+      </attribute>
+      <attribute id="ANLN2_ANEP" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN2_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLN2_ANEP"/>
+      </attribute>
+      <attribute id="GJAHR_ANEP" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GJAHR_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="GJAHR_ANEP"/>
+      </attribute>
+      <attribute id="LNRAN_ANEP" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LNRAN_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="LNRAN_ANEP"/>
+      </attribute>
+      <attribute id="AFABE" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AFABE"/>
+        <keyMapping columnObjectName="Union_1" columnName="AFABE"/>
+      </attribute>
+      <attribute id="BWASL" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BWASL"/>
+        <keyMapping columnObjectName="Union_1" columnName="BWASL"/>
+      </attribute>
+      <attribute id="ANUPD" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANUPD"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANUPD"/>
+      </attribute>
+      <attribute id="AUGLN" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUGLN"/>
+        <keyMapping columnObjectName="Union_1" columnName="AUGLN"/>
+      </attribute>
+      <attribute id="BZDAT_ANEP" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BZDAT_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="BZDAT_ANEP"/>
+      </attribute>
+      <attribute id="BUZEI_ANEP" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BUZEI_ANEP"/>
+        <keyMapping columnObjectName="Union_1" columnName="BUZEI_ANEP"/>
+      </attribute>
+      <attribute id="MANDT_ANEK" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT_ANEK"/>
+      </attribute>
+      <attribute id="BUKRS_ANEK" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BUKRS_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="BUKRS_ANEK"/>
+      </attribute>
+      <attribute id="ANLN1_ANEK" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN1_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLN1_ANEK"/>
+      </attribute>
+      <attribute id="ANLN2_ANEK" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN2_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLN2_ANEK"/>
+      </attribute>
+      <attribute id="GJAHR_ANEK" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GJAHR_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="GJAHR_ANEK"/>
+      </attribute>
+      <attribute id="LNRAN_ANEK" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LNRAN_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="LNRAN_ANEK"/>
+      </attribute>
+      <attribute id="MONAT_ANEK" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MONAT_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="MONAT_ANEK"/>
+      </attribute>
+      <attribute id="CPUTM_ANEK" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CPUTM_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="CPUTM_ANEK"/>
+      </attribute>
+      <attribute id="SGTXT_ANEK" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SGTXT_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="SGTXT_ANEK"/>
+      </attribute>
+      <attribute id="AWTYP_ANEK" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AWTYP_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="AWTYP_ANEK"/>
+      </attribute>
+      <attribute id="TCODE_ANEK" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TCODE_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="TCODE_ANEK"/>
+      </attribute>
+      <attribute id="MEINS_ANEK" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MEINS_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="MEINS_ANEK"/>
+      </attribute>
+      <attribute id="USNAM_ANEK" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USNAM_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="USNAM_ANEK"/>
+      </attribute>
+      <attribute id="BLDAT_ANEK" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BLDAT_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="BLDAT_ANEK"/>
+      </attribute>
+      <attribute id="CPUDT_ANEK" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CPUDT_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="CPUDT_ANEK"/>
+      </attribute>
+      <attribute id="GLVOR_ANEK" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLVOR_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="GLVOR_ANEK"/>
+      </attribute>
+      <attribute id="BUDAT_ANEK" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BUDAT_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="BUDAT_ANEK"/>
+      </attribute>
+      <attribute id="ANLU1_ANEK" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLU1_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLU1_ANEK"/>
+      </attribute>
+      <attribute id="ANLU2_ANEK" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLU2_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLU2_ANEK"/>
+      </attribute>
+      <attribute id="BELNR_ANEK" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BELNR_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="BELNR_ANEK"/>
+      </attribute>
+      <attribute id="AWORG_ANEK" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AWORG_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="AWORG_ANEK"/>
+      </attribute>
+      <attribute id="PBUKR_ANEK" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PBUKR_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="PBUKR_ANEK"/>
+      </attribute>
+      <attribute id="VORGN_ANEK" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VORGN_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="VORGN_ANEK"/>
+      </attribute>
+      <attribute id="VBUND_ANEK" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VBUND_ANEK"/>
+        <keyMapping columnObjectName="Union_1" columnName="VBUND_ANEK"/>
+      </attribute>
+      <attribute id="ANEK_Awkey" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANEK_Awkey"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANEK_Awkey"/>
+      </attribute>
+      <attribute id="BELNR_BKPF" order="60" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BELNR_BKPF"/>
+        <keyMapping columnObjectName="Union_1" columnName="BELNR_BKPF"/>
+      </attribute>
+      <attribute id="BLART_BKPF" order="61" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BLART_BKPF"/>
+        <keyMapping columnObjectName="Union_1" columnName="BLART_BKPF"/>
+      </attribute>
+      <attribute id="WAERS_BKPF" order="62" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAERS_BKPF"/>
+        <keyMapping columnObjectName="Union_1" columnName="WAERS_BKPF"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="ANBTR" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ANBTR"/>
+        <measureMapping columnObjectName="Union_1" columnName="ANBTR"/>
+      </measure>
+      <measure id="ZINSB" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ZINSB"/>
+        <measureMapping columnObjectName="Union_1" columnName="ZINSB"/>
+      </measure>
+      <measure id="NAFAB" order="13" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="NAFAB"/>
+        <measureMapping columnObjectName="Union_1" columnName="NAFAB"/>
+      </measure>
+      <measure id="SAFAB" order="14" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SAFAB"/>
+        <measureMapping columnObjectName="Union_1" columnName="SAFAB"/>
+      </measure>
+      <measure id="MENGE_ANEK" order="29" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MENGE_ANEK"/>
+        <measureMapping columnObjectName="Union_1" columnName="MENGE_ANEK"/>
+      </measure>
+      <measure id="VERKO" order="43" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="VERKO"/>
+        <measureMapping columnObjectName="Union_1" columnName="VERKO"/>
+      </measure>
+      <measure id="INVZL" order="44" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="INVZL"/>
+        <measureMapping columnObjectName="Union_1" columnName="INVZL"/>
+      </measure>
+      <measure id="INVZV" order="45" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="INVZV"/>
+        <measureMapping columnObjectName="Union_1" columnName="INVZV"/>
+      </measure>
+      <measure id="AUFNL" order="46" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AUFNL"/>
+        <measureMapping columnObjectName="Union_1" columnName="AUFNL"/>
+      </measure>
+      <measure id="NAFAV" order="47" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="NAFAV"/>
+        <measureMapping columnObjectName="Union_1" columnName="NAFAV"/>
+      </measure>
+      <measure id="AUFNV" order="48" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AUFNV"/>
+        <measureMapping columnObjectName="Union_1" columnName="AUFNV"/>
+      </measure>
+      <measure id="NAFAL" order="49" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="NAFAL"/>
+        <measureMapping columnObjectName="Union_1" columnName="NAFAL"/>
+      </measure>
+      <measure id="AUFWV" order="50" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AUFWV"/>
+        <measureMapping columnObjectName="Union_1" columnName="AUFWV"/>
+      </measure>
+      <measure id="AUFWL" order="51" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AUFWL"/>
+        <measureMapping columnObjectName="Union_1" columnName="AUFWL"/>
+      </measure>
+      <measure id="ERLBT" order="52" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ERLBT"/>
+        <measureMapping columnObjectName="Union_1" columnName="ERLBT"/>
+      </measure>
+      <measure id="SAFAV" order="53" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SAFAV"/>
+        <measureMapping columnObjectName="Union_1" columnName="SAFAV"/>
+      </measure>
+      <measure id="SAFAL" order="54" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SAFAL"/>
+        <measureMapping columnObjectName="Union_1" columnName="SAFAL"/>
+      </measure>
+      <measure id="SANWV" order="55" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SANWV"/>
+        <measureMapping columnObjectName="Union_1" columnName="SANWV"/>
+      </measure>
+      <measure id="MAFAV" order="56" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MAFAV"/>
+        <measureMapping columnObjectName="Union_1" columnName="MAFAV"/>
+      </measure>
+      <measure id="MAFAL" order="57" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MAFAL"/>
+        <measureMapping columnObjectName="Union_1" columnName="MAFAL"/>
+      </measure>
+      <measure id="AAFAV" order="58" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AAFAV"/>
+        <measureMapping columnObjectName="Union_1" columnName="AAFAV"/>
+      </measure>
+      <measure id="AAFAL" order="59" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AAFAL"/>
+        <measureMapping columnObjectName="Union_1" columnName="AAFAL"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ANEP_ECC" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="569"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ANEA_ECC" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ANEK_ECC" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ANEK_S4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="331" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="331" y="569"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="569"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1_ECC" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2_ECC" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ANEP_S4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="485" y="569"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1_S4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="408" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ANEAK_S4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="562" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2_S4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="BKPF_ECC" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3_ECC" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="BKPF_S4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3_S4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

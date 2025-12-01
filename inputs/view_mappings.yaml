@@ -1,0 +1,46 @@
+# View Mapping Configuration for Batch Report Generation
+# Maps input (ECC) calculation views to their corresponding remediated (S/4HANA) views
+#
+# Format:
+#   remediated_view_name:
+#     - input_view_1
+#     - input_view_2
+#     - input_view_3
+#
+# Notes:
+# - View names should NOT include the .calculationview extension
+# - Multiple input views can map to the same remediated view
+# - Input views are looked up in the selected input directory
+# - Remediated views are looked up in inputs/cv_remediated/
+
+mappings:
+  # RE mappings
+  CV_FSA_TRANSIT_DTL_RE_BASE:
+    - CV_FSA_TRANSIT_DTL_BSEG_RE_BASE
+
+  CV_FSA_TRANSIT_DTL_RE:
+    - CV_FSA_TRANSIT_DTL_BSEG_RE
+
+  # BF mappings
+  CV_FSA_TRANSIT_DTL_BF_BASE:
+    - CV_FSA_TRANSIT_DTL_BSEG_BF_BASE
+
+  CV_FSA_TRANSIT_DTL_BF:
+    - CV_FSA_TRANSIT_DTL_BSEG_BF
+
+  # ACDOCA mappings
+  CV_FSA_TRANSIT_DTL_ACDOCA_BASE:
+    - CV_FSA_TRANSIT_DTL_BSEG_BASE
+    - CV_FSA_TRANSIT_DTL_COEP_BASE
+    - CV_FSA_TRANSIT_DTL_COEP_BASE_REV
+
+  CV_FSA_TRANSIT_DTL_ACDOCA_2:
+    - CV_FSA_TRANSIT_DTL_BSEG
+
+  CV_FSA_TRANSIT_DTL_ACDOCA_1:
+    - CV_FSA_TRANSIT_DTL_COEP
+    - CV_FSA_TRANSIT_DTL_COEP_REV
+
+  # A02 mapping (1-to-1)
+  CV_FSA_ASST_PSTNG_DTL_A02:
+    - CV_FSA_ASST_PSTNG_DTL_A02

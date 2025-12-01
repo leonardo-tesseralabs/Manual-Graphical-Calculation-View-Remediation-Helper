@@ -1,0 +1,298 @@
+# ECC to S/4HANA Calculation View Remediation Specification
+# Generalizable structure supporting multiple source-to-target mappings
+
+BASE_TEMPLATE: "inputs/cv/CV_FSA_TRANSIT_DTL_BSEG_BF_BASE/CV_FSA_TRANSIT_DTL_BSEG_BF_BASE.calculationview"
+
+# ================================================================
+# VIEW-LEVEL ELEMENTS
+# ================================================================
+
+INPUT_PARAMETERS:
+  - parameter_id: "I_YEAR"
+    parameter_name: "I_YEAR"
+    description: "I_YEAR"
+    datatype: "NVARCHAR"
+    length: "4"
+    mandatory: true
+    value_domain_type: "empty"
+    selection_multiline: ""
+    selection_type: "SingleValue"
+    
+  - parameter_id: "I_MONTH"
+    parameter_name: "I_MONTH"
+    description: "I_MONTH"
+    datatype: "NVARCHAR"
+    length: "2"
+    mandatory: true
+    value_domain_type: "empty"
+    selection_multiline: ""
+    selection_type: "SingleValue"
+
+# ================================================================
+# NODE OPERATIONS
+# ================================================================
+
+DELETE_NODES:
+  - BSEG  # Original ECC BSEG table - replaced by ACDOCA + BSEG
+
+ADD_NODES:
+  # Primary S/4HANA universal journal table
+  - node_id: ACDOCA
+    type: datasource
+    schema_name: SLT_DR0
+    table_name: ACDOCA
+    description: "S/4HANA Universal Journal Entry Line Items"
+    calculated_columns: []  # No calculated columns for datasources
+    filter_expressions: []  # No filter expressions for datasources
+    field_sources:
+      # Direct 1:1 mappings from BSEG
+      ACRITMTYPE: "BSEG.ACRITMTYPE"
+      ACRLOGSYS: "BSEG.ACRLOGSYS"
+      ACROBJTYPE: "BSEG.ACROBJTYPE"
+      ACROBJ_ID: "BSEG.ACROBJ_ID"
+      ACRSOBJ_ID: "BSEG.ACRSOBJ_ID"
+      ACRVALDAT: "BSEG.ACRVALDAT"
+      ANBWA: "BSEG.ANBWA"
+      ANLN1: "BSEG.ANLN1"
+      ANLN2: "BSEG.ANLN2"
+      AUFNR: "BSEG.AUFNR"
+      AUGBL: "BSEG.AUGBL"
+      AUGDT: "BSEG.AUGDT"
+      AUGGJ: "BSEG.AUGGJ"
+      AWORG_REV: "BSEG.AWORG_REV"
+      AWREF_REV: "BSEG.AWREF_REV"
+      AWSYS: "BSEG.AWSYS"
+      AWTYP: "BSEG.AWTYP"
+      BDGT_ACCOUNT: "BSEG.BDGT_ACCOUNT"
+      BDGT_ACCOUNT_COCODE: "BSEG.BDGT_ACCOUNT_COCODE"
+      BELNR: "BSEG.BELNR"
+      BSCHL: "BSEG.BSCHL"
+      BTYPE: "BSEG.BTYPE"
+      BUZEI: "BSEG.BUZEI"
+      BWKEY: "BSEG.BWKEY"
+      BWTAR: "BSEG.BWTAR"
+      BZDAT: "BSEG.BZDAT"
+      DABRZ: "BSEG.DABRZ"
+      EBELN: "BSEG.EBELN"
+      EBELN_LOGSYS: "BSEG.EBELN_LOGSYS"
+      EBELP: "BSEG.EBELP"
+      EGRUP: "BSEG.EGRUP"
+      ETYPE: "BSEG.ETYPE"
+      FISTL: "BSEG.FISTL"
+      GJAHR: "BSEG.GJAHR"
+      HBKID: "BSEG.HBKID"
+      HKTID: "BSEG.HKTID"
+      HRKFT: "BSEG.HRKFT"
+      KBLNR: "BSEG.KBLNR"
+      KBLPOS: "BSEG.KBLPOS"
+      KOART: "BSEG.KOART"
+      KOKRS: "BSEG.KOKRS"
+      KTOSL: "BSEG.KTOSL"
+      KUNNR: "BSEG.KUNNR"
+      LIFNR: "BSEG.LIFNR"
+      LOKKT: "BSEG.LOKKT"
+      LSTAR: "BSEG.LSTAR"
+      MATNR: "BSEG.MATNR"
+      MEASURE: "BSEG.MEASURE"
+      MWSKZ: "BSEG.MWSKZ"
+      NETDT: "BSEG.NETDT"
+      NPLNR: "BSEG.NPLNR"
+      PAOBJNR: "BSEG.PAOBJNR"
+      PERNR: "BSEG.PERNR"
+      PEROP_BEG: "BSEG.PEROP_BEG"
+      PEROP_END: "BSEG.PEROP_END"
+      PRCTR: "BSEG.PRCTR"
+      PRODPER: "BSEG.PRODPER"
+      PSEGMENT: "BSEG.PSEGMENT"
+      REBZG: "BSEG.REBZG"
+      REBZJ: "BSEG.REBZJ"
+      REBZT: "BSEG.REBZT"
+      REBZZ: "BSEG.REBZZ"
+      RECID: "BSEG.RECID"
+      RISK_CLASS: "BSEG.RISK_CLASS"
+      SEGMENT: "BSEG.SEGMENT"
+      SERVICE_DOC_ID: "BSEG.SERVICE_DOC_ID"
+      SERVICE_DOC_ITEM_ID: "BSEG.SERVICE_DOC_ITEM_ID"
+      SERVICE_DOC_TYPE: "BSEG.SERVICE_DOC_TYPE"
+      SGTXT: "BSEG.SGTXT"
+      TAX_COUNTRY: "BSEG.TAX_COUNTRY"
+      UMSKZ: "BSEG.UMSKZ"
+      VALOBJTYPE: "BSEG.VALOBJTYPE"
+      VALOBJ_ID: "BSEG.VALOBJ_ID"
+      VALSOBJ_ID: "BSEG.VALSOBJ_ID"
+      VALUT: "BSEG.VALUT"
+      VNAME: "BSEG.VNAME"
+      VORGN: "BSEG.VORGN"
+      VPTNR: "BSEG.VPTNR"
+      WERKS: "BSEG.WERKS"
+      XOPVW: "BSEG.XOPVW"
+      ZEKKN: "BSEG.ZEKKN"
+      ZUONR: "BSEG.ZUONR"
+      _DATAAGING: "BSEG._DATAAGING"
+      
+      # Renamed/transformed fields from BSEG
+      RMVCT: "BSEG.BEWAR"
+      RBUKRS: "BSEG.BUKRS"
+      HSL: "BSEG.DMBTR"
+      OSL: "BSEG.DMBE2|BSEG.DMBE3"
+      RFAREA: "BSEG.FKBER|BSEG.FKBER_LONG"
+      RGRANT_NBR: "BSEG.GRANT_NBR"
+      RBUSA: "BSEG.GSBER"
+      RACCT: "BSEG.HKONT|BSEG.KSTAR"
+      BLART: "BSEG.H_BLART"
+      BLDAT: "BSEG.H_BLDAT"
+      BSTAT: "BSEG.H_BSTAT"
+      BUDAT: "BSEG.H_BUDAT"
+      ROCUR: "BSEG.H_HWAE2|BSEG.H_HWAE3"
+      RHCUR: "BSEG.H_HWAER"
+      POPER: "BSEG.H_MONAT"
+      RCNTR: "BSEG.KOSTL"
+      RCLNT: "BSEG.MANDT"
+      RUNIT: "BSEG.MEINS"
+      MSL: "BSEG.MENGE"
+      SBUSA: "BSEG.PARGB"
+      SBUDGET_PD: "BSEG.PBUDGET_PD"
+      HPEINH: "BSEG.PEINH"
+      SFAREA: "BSEG.PFKBER"
+      SGRANT_NBR: "BSEG.PGRANT_NBR"
+      KDPOS: "BSEG.POSN2"
+      PPRCTR: "BSEG.PPRCT"
+      PS_POSID: "BSEG.PROJK"
+      TSL: "BSEG.PSWBT"
+      RTCUR: "BSEG.PSWSL"
+      RBUDGET_PD: "BSEG.BUDGET_PD"
+      DRCRK: "BSEG.SHKZG"
+      KDAUF: "BSEG.VBEL2"
+      RASSC: "BSEG.VBUND"
+      RWCUR: "BSEG.WAERS"
+      WSL: "BSEG.WRBTR"
+      
+      # Fields from other tables
+      RLDNR: "FAGL_TLDGRP_MAP.RLDNR"
+
+  # Residual BSEG table for fields not in ACDOCA
+  - node_id: BSEG
+    type: datasource
+    schema_name: SLT_DR0
+    table_name: BSEG
+    description: "ECC General Ledger: Accounting Document Segment (Residual Fields)"
+    calculated_columns: []  # No calculated columns for datasources
+    filter_expressions: []  # No filter expressions for datasources
+    field_sources:
+      # Fields that remain in BSEG (no ACDOCA equivalent)
+      APLZL: "BSEG.APLZL"
+      AUFPL: "BSEG.AUFPL"
+      AUGCP: "BSEG.AUGCP"
+      FWBAS: "BSEG.FWBAS"
+      HWBAS: "BSEG.HWBAS"
+      LANDL: "BSEG.LANDL"
+      MWART: "BSEG.MWART"
+      FWSTE: "BSEG.MWSTS"
+      QSSHB: "BSEG.QSSHB"
+      SAKNR: "BSEG.SAKNR"
+      STCEG: "BSEG.STCEG"
+      TXBFW: "BSEG.TXBFW"
+      FWBAS_TAX: "BSEG.TXBHW"
+      TXGRP: "BSEG.TXGRP"
+      VBELN: "BSEG.VBELN"
+      WMWST: "BSEG.WMWST"
+      XAUTO: "BSEG.XAUTO"
+      XREF1: "BSEG.XREF1"
+      XREF2: "BSEG.XREF2"
+      XREF3: "BSEG.XREF3"
+      XUMSW: "BSEG.XUMSW"
+      ZLSCH: "BSEG.ZLSCH"
+      ZLSPR: "BSEG.ZLSPR"
+      ZTERM: "BSEG.ZTERM"
+      # Key fields for joining
+      MANDT: "BSEG.MANDT"
+      BUKRS: "BSEG.BUKRS"
+      BELNR: "BSEG.BELNR"
+      GJAHR: "BSEG.GJAHR"
+      BUZEI: "BSEG.BUZEI"
+
+REBUILD_NODES:
+  # Replace original BSEG aggregation with ACDOCA-based aggregation
+  - original_node: "Aggregation_1"
+    new_node: "Aggregation_1_ACDOCA"
+    type: aggregation
+    description: "ACDOCA-based aggregation replacing original BSEG aggregation"
+    input_mappings:
+     Join_ACDOCA_BSEG:
+        # PRIMARY S/4HANA FIELDS (output field names match ACDOCA semantics)
+        BELNR: "ACDOCA.BELNR"         # Document number
+        RBUKRS: "ACDOCA.RBUKRS"       # Company code (S/4HANA naming)
+        GJAHR: "ACDOCA.GJAHR"         # Fiscal year
+        BUZEI: "ACDOCA.BUZEI"         # Line item number
+        RCLNT: "ACDOCA.RCLNT"         # Client (S/4HANA naming)
+        RACCT: "ACDOCA.RACCT"         # G/L Account (was HKONT in ECC)
+        RMVCT: "ACDOCA.RMVCT"         # Transaction type (was BEWAR in ECC)
+        DRCRK: "ACDOCA.DRCRK"         # Debit/Credit (was SHKZG in ECC)
+        WSL: "ACDOCA.WSL"             # Document currency amount (was WRBTR in ECC)
+        HSL: "ACDOCA.HSL"             # Local currency amount (was DMBTR in ECC)
+        TSL: "ACDOCA.TSL"             # Third currency amount (was PSWBT in ECC)
+        MSL: "ACDOCA.MSL"             # Quantity (was MENGE in ECC)
+        RWCUR: "ACDOCA.RWCUR"         # Document currency (was WAERS in ECC)
+        RHCUR: "ACDOCA.RHCUR"         # Local currency (was HWAER in ECC)
+        RTCUR: "ACDOCA.RTCUR"         # Third currency (was PSWSL in ECC)
+        RUNIT: "ACDOCA.RUNIT"         # Unit of measure (was MEINS in ECC)
+        RCNTR: "ACDOCA.RCNTR"         # Cost center (was KOSTL in ECC)
+        PRCTR: "ACDOCA.PRCTR"         # Profit center
+        WERKS: "ACDOCA.WERKS"         # Plant
+        RASSC: "ACDOCA.RASSC"         # Trading partner (was VBUND in ECC)
+        RBUSA: "ACDOCA.RBUSA"         # Business area (was GSBER in ECC)
+        MATNR: "ACDOCA.MATNR"         # Material number
+        AUFNR: "ACDOCA.AUFNR"         # Order number
+        KUNNR: "ACDOCA.KUNNR"         # Customer number
+        LIFNR: "ACDOCA.LIFNR"         # Vendor number
+        
+        # RESIDUAL BSEG FIELDS (keep original ECC naming for fields not in ACDOCA)
+        FWBAS: "BSEG.FWBAS"           # Tax base foreign currency
+        HWBAS: "BSEG.HWBAS"           # Tax base local currency
+        FWSTE: "BSEG.FWSTE"           # Tax amount foreign currency (from MWSTS)
+        WMWST: "BSEG.WMWST"           # Tax amount document currency
+        TXBFW: "BSEG.TXBFW"           # Tax base document currency
+        QSSHB: "BSEG.QSSHB"           # Withholding tax base
+        SAKNR: "BSEG.SAKNR"           # Reconciliation account
+
+ADD_JOINS:
+  # Join ACDOCA with BSEG for residual fields
+  - join_id: "Join_ACDOCA_BSEG"
+    type: inner_join
+    left_node: "ACDOCA"
+    right_node: "BSEG"
+    join_conditions:
+      - field_mapping: "ACDOCA.RCLNT = BSEG.MANDT"
+      - field_mapping: "ACDOCA.RBUKRS = BSEG.BUKRS"
+      - field_mapping: "ACDOCA.BELNR = BSEG.BELNR"
+      - field_mapping: "ACDOCA.GJAHR = BSEG.GJAHR"
+      - field_mapping: "ACDOCA.BUZEI = BSEG.BUZEI"
+
+# Update BKPF to include AWKEY from BSEG
+UPDATE_NODES:
+  - node_id: "BKPF"
+    add_field_mappings:
+      AWKEY: "BSEG.AWKEY"
+
+# ================================================================
+# VALIDATION RULES
+# ================================================================
+
+VALIDATION_RULES:
+  check_references: true
+  validate_join_fields: true
+  validate_field_consistency: true
+  check_circular_dependencies: true
+  validate_source_mappings: true
+
+# ================================================================
+# METADATA
+# ================================================================
+
+TRANSFORMATION_METADATA:
+  description: "ECC to S/4HANA remediation for BSEG-based calculation view"
+  source_system: "ECC"
+  target_system: "S/4HANA"
+  primary_transformation: "BSEG -> ACDOCA + BSEG residual"
+  transformation_date: "2025-09-11"
+  version: "1.0"

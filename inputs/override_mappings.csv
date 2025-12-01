@@ -1,0 +1,8 @@
+ecc_table,ecc_field,s4_table,s4_field,FLAGGED_FOR_REVIEW,Notes
+BSAD,VBELN,BSEG,VBELN,N,"Due to table structure, this is mappable this way"
+BSID,VBELN,BSEG,VBELN,N,See above
+BSEG,DMBE2/3,ACDOCA,OSL,N,SME-confirmed placeholder
+BSEG,H_HWAE2/3,ACDOCA,ROCUR,N,SME-confirmed placeholder
+BSEG,AUGCP,BSEG,AUGCP,N,
+BSEG,AUFPL,BSEG,AUFPL,N,
+COEP,VERSN,ACDOCA,RLDNR,Y,"For now '000', likely to end up that way + config not set up"
